@@ -1,5 +1,5 @@
 CC= gcc
-CFLAGS= -O3 -Wall -std=c99 -c -g
+CFLAGS= -O1 -Wall -std=c99 -c -g
 POSTFLAGS= -lm 
 
 kekule: main.o input.o concat.o fold.o signature.o chrono.o hash.o 

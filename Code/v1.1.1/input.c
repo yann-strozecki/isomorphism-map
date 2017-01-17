@@ -292,11 +292,6 @@ void almost_foldable_path(int vertexnumber, Vertex *vert)
   almostfoldablepath = malloc(sizeof(unsigned int**)*mapsize);
 
 
-  //est-ce que almostfoldablepath[0] est utilisé ? Ça correspond à l'existence de solutions
-  //à l'équation diophantienne -> le dire 
-  // est-ce qu'on utilise la bonne liste de sommets ? Les sommets avec rotation ou sans ?
-  //shift sert à quoi exactement (un complémentaire mais sur quoi ) ?
-  //la première coordonné est un label. J'ai l'impression qu'on se fiche de son signe, c'est étrange non ?
   //définir en commentaires les trois dimensions et vérifier que c'est tight
   //première dimension : taille du chemin
   //deuxième dimension : label de la première lettre
@@ -325,8 +320,8 @@ void almost_foldable_path(int vertexnumber, Vertex *vert)
     add_after_a_label[value][sizes[value]].first = vert[i].labelvalue;//first is the labelvalue
     add_after_a_label[value][sizes[value]].second = almostfoldablepath[mapsize-1][value][vert[i].labelvalue + label.shift];//second is the set of labels of ending edges we have just computed
     sizes[value]++;
-    //could be optimized by detecting equal labelvalues and storing the union
-    printf("add labelvalue %d label %d bitset %d vertexnumber %d\n",vert[i].labelvalue,value,almostfoldablepath[mapsize-1][value][vert[i].labelvalue+label.shift],i);
+    //TODO: detecting equal labelvalues and storing the union 
+    //printf("add labelvalue %d label %d bitset %d vertexnumber %d\n",vert[i].labelvalue,value,almostfoldablepath[mapsize-1][value][vert[i].labelvalue+label.shift],i);
   }
 
   ///// Incremental build of almostfoldablepath ////////////////////////////
@@ -351,7 +346,7 @@ void almost_foldable_path(int vertexnumber, Vertex *vert)
       }
     }
   }
-  printmatrix(almostfoldablepath,mapsize,label.size,maxsize);
+  //printmatrix(almostfoldablepath,mapsize,label.size,maxsize);
   //free the intermediate structures
   for(i=0;i<label.size;i++){free(add_after_a_label[i]);}
   free(add_after_a_label);
