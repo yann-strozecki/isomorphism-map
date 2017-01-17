@@ -18,9 +18,9 @@ void print_vertexsignature(unsigned int sig){
 
 
 void print_signature(Map *M) {
-  int i;
+  
   printf("%d edges\n Début de la signature \n",M->edgenumber);
-  for (i=0 ; i<M->edgenumber ; i++) {
+  for (int i=0 ; i<M->edgenumber ; i++) {
    print_vertexsignature(M->signature[i]);
  }
  printf("Fin de la signature \n \n");

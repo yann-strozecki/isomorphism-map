@@ -31,24 +31,21 @@ int main (int argc, char *argv[])
 	printf("1. Read of the input file: %s, Size = %d. \n Creation of the data structures.\n",argv[1],mapsize);
 
 
-	int vertexnumber, vertexconcatnumber;
+	int vertexnumber, vertexconcatnumber;//virer vertices et vertexconcatnumber
 	vertexnumber = read_input (argv[1], &maxdegree);
   //printvertices(vertexnumber,vertices);
 	normalize_labels(vertexnumber, vertices);
   //for(i=0;i<label.size;i++) printf("label %d : %d ",i,label.list[i]);
   //printvertices(vertexnumber,vertices);
 	vertices = create_rotated_vertices(vertexnumber,&vertexconcatnumber,vertices);
+  //printvertices(vertexconcatnumber,vertices);
 	create_concatenation_helper(vertexconcatnumber, vertices);
   //printcompatible(label.size);
-	shift = 0;
-	for(i=0; i<label.size/2;i++){
-		shift+= (int) (pow(MAGICNUMBER,i+1)/2) ;
-  	}//used to create and  read the almost_foldable structures (base to encode vectors of small dimension)
-  	if(BACKBONETYPE){
-  		almost_foldable_path(vertexconcatnumber, vertices);
-  	}else{
-  		almost_foldable_tree(vertexconcatnumber, vertices);
-  	}
+  if(BACKBONETYPE){
+  	almost_foldable_path(vertexconcatnumber, vertices);
+  }else{
+  	almost_foldable_tree(vertexconcatnumber, vertices);
+  }
 
   /********* structures useful for the concat and the fold, memory allocation once and for all here **********/
 

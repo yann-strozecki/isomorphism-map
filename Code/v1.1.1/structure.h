@@ -5,7 +5,6 @@
 #ifndef ___STRUCTURE_H
 #define ___STRUCTURE_H
 
-#define MAGICNUMBER 256 //used as a basis to encode informations about the free labels in a map into a single integer
 #define BACKBONETYPE 1 // 0 for generating tree, 1 for generating path, 2 for generating cycle
 #define HASH_SIZE 1000000 //augmenter pour diminuer les collisions
 #define HEAP_SIZE 10000000 //stockage des signatures
@@ -16,7 +15,7 @@
 
 
 typedef struct elem{
-  unsigned int* data; //mettre comme premier élément de la signature sa taille
+  unsigned int* data; //the first element is the size of the stored signature
   struct elem* next;
 } elem;	
 
@@ -46,6 +45,8 @@ typedef struct pair {
 typedef struct Label {
 	int *list;// array of the value of the labels in the .mot (only the positive ones)
 	int size; //number of different labels
+	int maxlabelnumber; // maximum number of a single label in an almost foldable map of size mapsize 
+	int shift;//shift of the label value, computed at the same time as maxlabelnumber 
 } Label; //Label and compatibleVertices could be unified
 
 
@@ -54,7 +55,7 @@ typedef struct Vertex {  //An array of all possible vertices is built at the beg
 	int degree; // Number of edges
 	int id; // Position in the .mot file 
 	int *edges; // Array containing the label of the edges
-	int labelvalue;
+	int labelvalue;//encode the vector of number of each type of labels
 } Vertex;
 
 
@@ -75,7 +76,7 @@ typedef struct FreeEdge {  //a free edge in the graph
 typedef struct Edge {
 	int vertexindex;//vertex connected to the edge
 	int edgeindex;//position of this edge in the neighborood of the end vertex
-  int val;//partial signature containing (edge label, vertex id)
+  	int val;//partial signature containing (edge label, vertex id)
 } Edge; 
 
 typedef struct VertexMap {
@@ -96,12 +97,12 @@ typedef struct Map{
 //All variables defined here globally correspond to unique instance of their type. They are used to store immutable informations all along the algorithm.
 //Séparer les immutables des justes uniques
 
-Vertex *vertices;// Vertices given in the mot and their rotation
+Vertex *vertices;// Vertices given in the .mot and their rotations
 Label label; //Label of the edges
 CompatibleVertices *connection;//helper structure to do the concatenation fast
 unsigned int *** almostfoldablepath;//structure to cut in the enumeration of paths
 unsigned int ** almostfoldabletree;//structure to cut in the enumeration of trees
-int mapsize,maxdegree,maxoutlinesize,shift;
+int mapsize,maxdegree,maxoutlinesize;
 int *previous,*mat,*foldable_with,**fold_matrix,*call_stack;
 pair *to_fold,*folded;
 int *rank, *rank_init, *stack_edge, *stack_vertex;
