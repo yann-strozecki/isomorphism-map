@@ -75,7 +75,7 @@ typedef struct FreeEdge {  //a free edge in the graph
 typedef struct Edge {
 	int vertexindex;//vertex connected to the edge
 	int edgeindex;//position of this edge in the neighborood of the end vertex
-        int val;//partial signature containing (edge label, vertex id)
+  int val;//partial signature containing (edge label, vertex id)
 } Edge; 
 
 typedef struct VertexMap {
