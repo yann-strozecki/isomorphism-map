@@ -105,6 +105,6 @@ unsigned int ** almostfoldabletree;//structure to cut in the enumeration of tree
 int mapsize,maxdegree,maxoutlinesize;
 int *previous,*mat,*foldable_with,**fold_matrix,*call_stack;
 pair *to_fold,*folded;
-int *rank, *rank_init, *stack_edge, *stack_vertex;
+int *rank, *stack_edge, *stack_vertex;
 
 #endif

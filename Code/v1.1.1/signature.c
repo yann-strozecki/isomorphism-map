@@ -33,7 +33,8 @@ void print_signature(Map *M) {
 
 void signature_vertex_edge(Map *M, int vertex_deb, int edge_deb) {
   // Rank is an array that gives for each vertex its rank in the signature, -1 if the vertex has no rank yet
-  memcpy(rank,rank_init,sizeof(int)*mapsize);//initialize the rank array
+  memset(rank,0,sizeof(int)*mapsize);
+  //using char for rank seems very bad for performance
   int stack_length = 1;
   stack_edge[0] = edge_deb;
   stack_edge[1] =  M->vertexarray[vertex_deb].edges[edge_deb].edgeindex;
@@ -48,7 +49,7 @@ void signature_vertex_edge(Map *M, int vertex_deb, int edge_deb) {
     current_vertex = stack_vertex[stack_length];
     current_edge = stack_edge[stack_length];
     stack_length--;
-    if(rank[current_vertex]==-1){
+    if(!rank[current_vertex]){
       rank[current_vertex] = S_index;//index a new found vertex
       for(int i = current_edge+1; i< M->vertexarray[current_vertex].degree;i++){//add the neighborood of a new vertex to the stack of vertices to visit
        stack_length++;

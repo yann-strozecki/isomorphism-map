@@ -75,8 +75,6 @@ int main (int argc, char *argv[])
   /**************************** Allocation of the structures used to compute the signature ******************/
   
   rank = malloc(mapsize*sizeof(int)); 
-  rank_init = malloc(mapsize*sizeof(int));
-  for(i=0;i<mapsize;i++) {rank_init[i] = -1;}
   stack_edge = malloc(mapsize*maxdegree*sizeof(int));
   stack_vertex = malloc(mapsize*maxdegree*sizeof(int));
 
@@ -131,7 +129,6 @@ int main (int argc, char *argv[])
   for (i=0 ; i<maxoutlinesize-1 ; i++) {free(fold_matrix[i]);}
   free(fold_matrix);
   free(rank);
-  free(rank_init);
   free(stack_edge);
   free(stack_vertex);
   chrono();

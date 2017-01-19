@@ -3,7 +3,7 @@
 #include "structure.h"
 #include "fold.h"
 #include "hash.h"
-
+#include <string.h> 
 
 //Print function for debug//
 void printmap(Map *map){
@@ -42,28 +42,28 @@ int computeoutline(Map *map, FreeEdge *outline, Vertex* vert){
 	int vertex=0, edge=0, outlinesize = 0, nextvertex;
 	do{
     //printf("vertex : %d, edge : %d\n",vertex,edge);
-    nextvertex = map->vertexarray[vertex].edges[edge].vertexindex;//could be optimized for the case of paths
-    if(nextvertex == -1)
-      {//there is a free edge to add to the outline
-      	outline[outlinesize].label = label.list[vert[map->vertexarray[vertex].type].edges[edge]];
-      	outline[outlinesize].vertexindex = vertex;
-      	outline[outlinesize].edgeindex = edge;
-      	outlinesize++;
-      	edge++;
-      }
-    else //we follow the edge to a new vertex
-    {
+    	nextvertex = map->vertexarray[vertex].edges[edge].vertexindex;//could be optimized for the case of paths
+    	if(nextvertex == -1)
+      	{//there is a free edge to add to the outline
+      		outline[outlinesize].label = label.list[vert[map->vertexarray[vertex].type].edges[edge]];
+      		outline[outlinesize].vertexindex = vertex;
+      		outline[outlinesize].edgeindex = edge;
+      		outlinesize++;
+      		edge++;
+      	}
+    	else //we follow the edge to a new vertex
+    	{
 			edge = map->vertexarray[vertex].edges[edge].edgeindex + 1;//store the edge after the one we have used
 			vertex = nextvertex;
 		}	
-    if(edge == map->vertexarray[vertex].degree) {edge = 0;} //next edge in the neighborood 
-  }while(vertex != 0 || edge !=0); //stop when we are back to the first vertex and edge
-  return outlinesize;
+    	if(edge == map->vertexarray[vertex].degree) {edge = 0;} //next edge in the neighborood 
+  	}while(vertex != 0 || edge !=0); //stop when we are back to the first vertex and edge
+  	return outlinesize;
 }
 
 int is_foldable(FreeEdge *w, int length){//return true when the backbone is foldable
 	int i,j=1,counter=0;
-	for(i=0;i<length;i++) {
+	for(i=0;i<length;i++) { //could be done by a mempcy to speed up
     	previous[i] = i-1; //initialize the previous unfolded letter 
     }
     i=0;
@@ -86,17 +86,16 @@ int is_foldable(FreeEdge *w, int length){//return true when the backbone is fold
       		i=j;
       		j++;
       	}
-      }
-      return (counter == length);  
+    }
+    return (counter == length);  
   }
 
 void precompute_foldable(FreeEdge *w, int length) //use only on foldable words, dynamic programming to compute the fold_matrix which contains 
 //for each i the list of j which be folded with i so that the words obtained are still foldable
 { 
 	int i,j,k;
-	for(i=0;i<length*length;i++){mat[i]=0;}
-  for(i=0;i<length;i++){foldable_with[i]=0;}//last known element which can be folded with i
-
+	memset(mat,0,length*length*sizeof(int));
+	memset(foldable_with,0,length*sizeof(int));//represent the last known element which can be folded with i
   	for(k=1;k <length;k+=2) 
     {//k is the distance between two letters we want to decide if they are foldable
     	for(i=0; i < length - k;i++) 
@@ -114,8 +113,8 @@ void precompute_foldable(FreeEdge *w, int length) //use only on foldable words, 
     	{
     		if(mat[i*length+j] && (w[i].label + w[j].label == 0) ) {fold_matrix[i][k]=j; k++;}
     	}
-    fold_matrix[i][k]=length; // mark the end of the array
-}
+    	fold_matrix[i][k]=length; // mark the end of the array
+	}
 }
 
 

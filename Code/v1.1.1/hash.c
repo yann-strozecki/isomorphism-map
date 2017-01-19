@@ -8,7 +8,7 @@ unsigned int hash_basic(unsigned int* tab){//the size of the tab is written in t
     res ^= (tab[i] << i) | (tab[i] >> (sizeof(int)*8 - i));  
   }
   return (res%HASH_SIZE);
-} //32 should be replaced by sizeof(int)*8
+} 
 
 Heap* initialize_heap(){
   Heap* hp = malloc(sizeof(Heap));
