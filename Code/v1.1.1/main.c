@@ -77,7 +77,7 @@ int main (int argc, char *argv[])
   rank = malloc(mapsize*sizeof(int)); 
   rank_init = malloc(mapsize*sizeof(int));
   for(i=0;i<mapsize;i++) {rank_init[i] = -1;}
-  	stack_edge = malloc(mapsize*maxdegree*sizeof(int));
+  stack_edge = malloc(mapsize*maxdegree*sizeof(int));
   stack_vertex = malloc(mapsize*maxdegree*sizeof(int));
 
   /************************************** The generation procedure *************************************************/
@@ -105,38 +105,37 @@ int main (int argc, char *argv[])
   
   if(BACKBONETYPE){
   	for (i=0 ; i < mapsize ; i++) {
-  		for (j=0 ; j<label.size ; j++) free(almostfoldablepath[i][j]);
-  			free(almostfoldablepath[i]);
+  		for (j=0 ; j<label.size ; j++) {free(almostfoldablepath[i][j]);}
+  		free(almostfoldablepath[i]);
   	}
   	free(almostfoldablepath);
   }
   else{
-  	for (i=0 ; i < mapsize ; i++) {free(almostfoldabletree[i]);}
+  	for (i = 0 ; i < mapsize ; i++) {free(almostfoldabletree[i]);}
   		free(almostfoldabletree);
   }
 
   for (i=0 ; i < vertexconcatnumber ; i++) free(vertices[i].edges);
-  	free(vertices);
+  free(vertices);
   for (i=0 ; i<label.size ; i++) free(connection[i].list);
-  	free(connection);
+  free(connection);
   free(label.list);
 
   // mutable structures used for the map generation or index computation
   free(outline);
   for (i=0 ; i < map.vertexnumber ; i++) {free(map.vertexarray[i].edges);}
   free(map.vertexarray);//free the map
-free(previous);
-free(mat);
-free(to_fold);
-free(folded);
-for (i=0 ; i<maxoutlinesize-1 ; i++) {free(fold_matrix[i]);}
-	free(fold_matrix);
-free(rank);
-free(rank_init);
-free(stack_edge);
-free(stack_vertex);
-chrono();
-  //print_global_indices(LongDirName,backbonenumber,mapsize,avl,vertices,tps,tps_indices);
-printf("## END ##\n");
+  free(previous);
+  free(mat);
+  free(to_fold);
+  free(folded);
+  for (i=0 ; i<maxoutlinesize-1 ; i++) {free(fold_matrix[i]);}
+  free(fold_matrix);
+  free(rank);
+  free(rank_init);
+  free(stack_edge);
+  free(stack_vertex);
+  chrono();
+  printf("## END ##\n");
 return 0;
 }

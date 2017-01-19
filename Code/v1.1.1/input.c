@@ -149,7 +149,7 @@ void normalize_labels(int size, Vertex *vert ){
   for(i=0;i <labelnumber;i++){label.list[labelnumber+i] = -label.list[i];}
   // change the labels to their indices in label.list and compute the largest number edge with the same label
   // minus the edges with the complementary label on a single vertex
-  label.size = 2*labelnumber;
+  label.size = 2*labelnumber; 
   int *label_count = calloc(labelnumber,sizeof(int));
   for(i=0; i < size; i++){ 
     for(j=0; j < vert[i].degree; j++){
@@ -168,12 +168,13 @@ void normalize_labels(int size, Vertex *vert ){
     }
   }
   free(label_count);
-  label.maxlabelnumber = (label.maxlabelnumber*mapsize); //the size of the interval of the possible values -> to divide by two once the other algorithms are modified accordingly
+  label.maxlabelnumber = (label.maxlabelnumber*mapsize)*2; //the size of the interval of the possible values 
+  //could be divided by two, but need to modify the generation of path and trees with an additionnal check
   for(int l = 1; l <= labelnumber; l++) label.shift += (int) pow(label.maxlabelnumber,l) /2;//used to shift all labelvalues so that they are all positive
   //a labelvalue equal shift correspond to zero
   //it is a bound on the maximal negative values
 
-  printf(" \n Max number of labels of the same type %d \n Shift to encode labelvalues %d\n",label.maxlabelnumber,label.shift);
+  printf(" \n Max number of free labels of the same type in a tree %d \n Shift to encode labelvalues %d\n",label.maxlabelnumber,label.shift);
   //compute the labelvalue of each vertex by adding the value of the label of each edge
   for(i=0; i < size; i++){ 
     vert[i].labelvalue = 0;
@@ -264,7 +265,7 @@ void almost_foldable_tree(int vertexnumber, Vertex *vert)
   {
     almostfoldabletree[i] = calloc(maxsize,sizeof(unsigned int));
   }
-  for(int i=0;i<vertexnumber;i++) almostfoldabletree[mapsize-1][vert[i].labelvalue] = 1;
+  for(int i=0;i<vertexnumber;i++) almostfoldabletree[mapsize-1][vert[i].labelvalue + label.shift] = 1;
   for(int i=1;i<mapsize;i++) {
     for(int j=0;j<maxsize;j++){
       if(almostfoldabletree[mapsize -i][j]){
@@ -272,6 +273,7 @@ void almost_foldable_tree(int vertexnumber, Vertex *vert)
       }
     }
   }
+  printf("Fin de la création de la matrice \n");
   //printmatrixtree(mat,size,maxsize,MAGICNUMBER,alphabetsize);
 }
 
@@ -290,13 +292,15 @@ void almost_foldable_path(int vertexnumber, Vertex *vert)
   int alphabetsize = label.size/2;
   int maxsize = 2*label.shift;//third dimension of the matrix, correspond to the sum of values of the free edges in the map
   almostfoldablepath = malloc(sizeof(unsigned int**)*mapsize);
+  //this matrix has three dimensions
+  //the first is the maximum size of a path minus the size of the path it encodes information about
+  //the second is the label of the first edge of the first vertex
+  //the third is number of each type of free edge encoded in an integer
+  //the value of a coefficient is a bivector encoded in an integer, which represent the labels
+  //of the free edges of the last element
 
-
-  //définir en commentaires les trois dimensions et vérifier que c'est tight
-  //première dimension : taille du chemin
-  //deuxième dimension : label de la première lettre
-  //troisième dimension : nombre de chaque type de label sur des aretes libres encodé dans un entier
-  //contenu de la matrice
+  //TODO: give the meaning of almost foldablepath[0] -> could be used in signature computation
+  
 
   /////// Initialization ///////////////////////////////////
 

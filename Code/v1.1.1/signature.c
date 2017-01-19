@@ -139,12 +139,6 @@ void signature_vertex_edge(Map *M, int vertex_deb, int edge_deb) {
 // 3. Computes the minimal signature of a map
 // ######
 void signature_compute(Map *M) {
-  if(BACKBONETYPE==0){ //size is not computed when the backbone is a tree
-    M->edgenumber = mapsize -3;
-    for (int vertex = 0 ; vertex<M->vertexnumber; vertex++){//could be computed during the construction of the map but less efficient
-      M->edgenumber += M->vertexarray[vertex].degree;
-    }
-  }
   for (int vertex = 0 ; vertex<M->vertexnumber; vertex++){//could be computed during the construction of the map but less efficient
     for (int edge = 0 ; edge < M->vertexarray[vertex].degree ; edge++){
       M->vertexarray[vertex].edges[edge].val = (vertices[M->vertexarray[vertex].type].id<<8) + vertices[M->vertexarray[vertex].type].edges[edge]; 
