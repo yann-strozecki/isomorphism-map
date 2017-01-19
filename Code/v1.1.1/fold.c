@@ -97,7 +97,7 @@ void precompute_foldable(FreeEdge *w, int length) //use only on foldable words, 
 	for(i=0;i<length*length;i++){mat[i]=0;}
   for(i=0;i<length;i++){foldable_with[i]=0;}//last known element which can be folded with i
 
-  for(k=1;k <length;k+=2) 
+  	for(k=1;k <length;k+=2) 
     {//k is the distance between two letters we want to decide if they are foldable
     	for(i=0; i < length - k;i++) 
     	{
@@ -115,7 +115,7 @@ void precompute_foldable(FreeEdge *w, int length) //use only on foldable words, 
     		if(mat[i*length+j] && (w[i].label + w[j].label == 0) ) {fold_matrix[i][k]=j; k++;}
     	}
     fold_matrix[i][k]=length; // mark the end of the array
-  }
+}
 }
 
 
@@ -139,18 +139,18 @@ void generation(Map *map, Hasht* h, FreeEdge *outline,int index_to_fold, int ind
 	     map->vertexarray[outline[folded_letter].vertexindex].edges[outline[folded_letter].edgeindex].edgeindex = outline[word_to_fold.first].edgeindex;
 	//insert the 2 new subwords to fold if they aren't of size 0
 	     if(word_to_fold.second != folded_letter) {
-		      to_fold[++index_to_fold].first = folded_letter +1 ;
-		      to_fold[index_to_fold].second =  word_to_fold.second; 
-        }
+	     	to_fold[++index_to_fold].first = folded_letter +1 ;
+	     	to_fold[index_to_fold].second =  word_to_fold.second; 
+	     }
 	     if(folded_letter != word_to_fold.first + 1) {
-		    to_fold[++index_to_fold].first = word_to_fold.first + 1;
-		    to_fold[index_to_fold].second = folded_letter - 1;
-        }
+	     	to_fold[++index_to_fold].first = word_to_fold.first + 1;
+	     	to_fold[index_to_fold].second = folded_letter - 1;
+	     }
 	     index_folded++;
 	     call_stack[index_folded]=0;//reinitialize next possible fold
 	     continue;
-      }
-    }
+	 }
+	}
     if(index_folded == 0) {break;}//stop when all possibilities have been exhausted
 
     index_folded--;
@@ -177,27 +177,26 @@ void generation(Map *map, Hasht* h, FreeEdge *outline,int index_to_fold, int ind
       //the pair of elements is concatenated with the two first pairs of to_fold
     }
     call_stack[index_folded]++;
-  }
+}
 }
 
 
 
 //function which produces all maps obtained by folding the outline of a backbone
-void folding_enumeration(Map map, Hasht *h, FreeEdge *outline)
+void folding_enumeration(Map *map, Hasht *h, FreeEdge *outline)
 { 
   //Begin of the folding
-
 	int i,j;
 	int index_to_fold=0;
-  int index_folded=0;// number of pairs folded in folded 
-  int folded_letter=0; // current letter being folded to the first letter of word_to_fold.first
-  pair word_to_fold; //current subword
-  pair word_folded; // pair of letter to unfold 
-  int outlinesize = computeoutline(&map,outline,vertices);//compute the outline
+  	int index_folded=0;// number of pairs folded in folded 
+  	int folded_letter=0; // current letter being folded to the first letter of word_to_fold.first
+  	pair word_to_fold; //current subword
+  	pair word_folded; // pair of letter to unfold 
+  	int outlinesize = computeoutline(map,outline,vertices);//compute the outline
   //printoutline(outline,outlinesize);
-  if(is_foldable(outline,outlinesize))//test wether the word is foldable
-  {
-      precompute_foldable(outline, outlinesize); //populates the helper structures 
+  	if(is_foldable(outline,outlinesize))//test wether the word is foldable
+  	{
+  	  precompute_foldable(outline, outlinesize); //populates the helper structures 
 
 
       if(BACKBONETYPE == 2)//deal with the case of cycles or paths with the proper initialization before generation() is called
@@ -208,13 +207,13 @@ void folding_enumeration(Map map, Hasht *h, FreeEdge *outline)
 	    while(fold_matrix[i][j] != outlinesize)//only consider element foldable with the first and wich are connected to the last
 	    {
 	    	element = fold_matrix[i][j];
-		if(( outline[i].vertexindex == 0 && outline[element].vertexindex == map.vertexnumber -1) || (outline[i].vertexindex == map.vertexnumber -1  && outline[element].vertexindex == 0  )) //test whether the two considered foldable free vertices are attached to the first and last motif 
+		if(( outline[i].vertexindex == 0 && outline[element].vertexindex == map->vertexnumber -1) || (outline[i].vertexindex == map->vertexnumber -1  && outline[element].vertexindex == 0  )) //test whether the two considered foldable free vertices are attached to the first and last motif 
 		{
 		    //we fold the two vertices 
-			map.vertexarray[outline[i].vertexindex].edges[outline[i].edgeindex].vertexindex = outline[element].vertexindex;
-			map.vertexarray[outline[i].vertexindex].edges[outline[i].edgeindex].edgeindex = outline[element].edgeindex;
-			map.vertexarray[outline[element].vertexindex].edges[outline[element].edgeindex].vertexindex = outline[i].vertexindex;
-			map.vertexarray[outline[element].vertexindex].edges[outline[element].edgeindex].edgeindex = outline[i].edgeindex;
+			map->vertexarray[outline[i].vertexindex].edges[outline[i].edgeindex].vertexindex = outline[element].vertexindex;
+			map->vertexarray[outline[i].vertexindex].edges[outline[i].edgeindex].edgeindex = outline[element].edgeindex;
+			map->vertexarray[outline[element].vertexindex].edges[outline[element].edgeindex].vertexindex = outline[i].vertexindex;
+			map->vertexarray[outline[element].vertexindex].edges[outline[element].edgeindex].edgeindex = outline[i].edgeindex;
 			index_to_fold=-1;
 		    call_stack[0] = 0;//initialize the stack for the recursive calls
 		    if(i!= 0)
@@ -236,7 +235,7 @@ void folding_enumeration(Map map, Hasht *h, FreeEdge *outline)
 		    	to_fold[index_to_fold].first = element+1; 
 		    	to_fold[index_to_fold].second = outlinesize-1;
 		    }
-		    generation(&map, h, outline, index_to_fold, index_folded, folded_letter, word_to_fold, word_folded);
+		    generation(map, h, outline, index_to_fold, index_folded, folded_letter, word_to_fold, word_folded);
 		}
 		j++;
 	}
@@ -246,10 +245,10 @@ void folding_enumeration(Map map, Hasht *h, FreeEdge *outline)
 	call_stack[0] = 0;//initialize the stack for the recursive calls
 	to_fold[0].first = 0; 
 	to_fold[0].second = outlinesize-1;
-	generation(&map, h, outline, index_to_fold, index_folded, folded_letter, word_to_fold, word_folded);
+	generation(map, h, outline, index_to_fold, index_folded, folded_letter, word_to_fold, word_folded);
 }
 for(i=0; i < outlinesize; i++) 
-	map.vertexarray[outline[i].vertexindex].edges[outline[i].edgeindex].vertexindex = -1; //reinitialize the free edges to -1
+	map->vertexarray[outline[i].vertexindex].edges[outline[i].edgeindex].vertexindex = -1; //reinitialize the free edges to -1
 }	
 }
 

@@ -1,4 +1,4 @@
-void folding_enumeration(Map map, Hasht* h, FreeEdge *outline);
+void folding_enumeration(Map *map, Hasht* h, FreeEdge *outline);
 
 int computeoutline(Map *map, FreeEdge *outline, Vertex *vert);
 

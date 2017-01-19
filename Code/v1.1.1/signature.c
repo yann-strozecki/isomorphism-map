@@ -145,7 +145,7 @@ void signature_compute(Map *M) {
     }
   }
   // Intialize the signature
-  M->signature[0] = M->edgenumber; //used to encode how many elements of M->signature[0] are relevant, could be another field
+  M->signature[0] = M->edgenumber; 
   M->signature[1] = 0x7fffffff; 	// The left most bit is always 0 in a signature. 
   // This initialization garanties that the first computed signature will be lower
   // Computes the signature for each starting position (vertex,edge)

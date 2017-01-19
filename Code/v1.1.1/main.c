@@ -51,9 +51,9 @@ int main (int argc, char *argv[])
 
   //Some of the memory allocation are used for several variables which are not used at the same time
 
+  Map *M = initializemap();//create the map 
   Hasht *h = initialize_hasht();
   maxoutlinesize = (maxdegree-1)*mapsize;
-  Map map = initializemap();//create the map 
   FreeEdge *outline = malloc(maxoutlinesize*sizeof(FreeEdge));
   if (!outline) { fprintf(stderr,"cannot map.outline in concat.c\n"); exit(41); }
   previous = malloc(maxoutlinesize*sizeof(int));// the same memory is used for several arrays
@@ -87,9 +87,9 @@ int main (int argc, char *argv[])
 
   unsigned long long int backbonenumber;
   if(BACKBONETYPE){
-  	backbonenumber = generate_paths(vertexnumber, h, map, outline);
+  	backbonenumber = generate_paths(vertexnumber, h, M, outline);
   }else{
-  	backbonenumber =  generate_trees(vertexnumber, h, map, outline);
+  	backbonenumber =  generate_trees(vertexnumber, h, M, outline);
   }
   printf("\r\033[2K   Nb backbones:"); prettyprint(backbonenumber); printf("\n");
   printf("  Nb folded maps    : "); prettyprint(h->insertions); printf("\n");
@@ -123,8 +123,7 @@ int main (int argc, char *argv[])
 
   // mutable structures used for the map generation or index computation
   free(outline);
-  for (i=0 ; i < map.vertexnumber ; i++) {free(map.vertexarray[i].edges);}
-  free(map.vertexarray);//free the map
+  free_map(M);
   free(previous);
   free(mat);
   free(to_fold);

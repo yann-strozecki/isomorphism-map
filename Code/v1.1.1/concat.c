@@ -3,7 +3,7 @@
 #include "fold.h"
 #include "hash.h"
 #include "chrono.h"
-#define CURRENTLABEL vertices[map.vertexarray[currentsize].type].edges[currentedge]
+#define CURRENTLABEL vertices[map->vertexarray[currentsize].type].edges[currentedge]
 
 
 int smallest_representation(Map *map)
@@ -13,29 +13,31 @@ int smallest_representation(Map *map)
   	return (vertices[map->vertexarray[i].type].id <= vertices[map->vertexarray[map->vertexnumber-i-1].type].id);
 }
 
-Map initializemap(){//create a new map with value -1 on the edges
-	int i,j;
-	Map map;
-	map.vertexnumber = mapsize;
-	map.edgenumber = 0;
-	map.vertexarray = malloc(sizeof(struct VertexMap)*mapsize);
-	if (!map.vertexarray) { fprintf(stderr,"cannot malloc map.vertexarray in concat.c\n"); exit(42); }
-	for (i=0 ; i<mapsize ; i++) {
-		map.vertexarray[i].edges = malloc(sizeof(struct Edge)*maxdegree);
-		if (!map.vertexarray[i].edges) { fprintf(stderr,"cannot malloc map.vertexarray[%d].edges in concat.c\n",i); exit(43); }
-		for(j=0;j<maxdegree;j++) {
-			map.vertexarray[i].edges[j].vertexindex = -1;
-			map.vertexarray[i].edges[j].edgeindex = -1;
-			}
-		map.signature = malloc(mapsize * maxdegree * sizeof(unsigned int));
+Map *initializemap(){//create a new map with value -1 on the edges
+	Map *M= malloc(sizeof(Map));
+	M->vertexnumber = mapsize;
+	M->edgenumber = 0;
+	M->vertexarray = malloc(sizeof(struct VertexMap)*mapsize);
+	if (!M->vertexarray) { fprintf(stderr,"cannot malloc map->vertexarray in concat.c\n"); exit(42); }
+	for (int i=0 ; i<mapsize ; i++) {
+		M->vertexarray[i].edges = malloc(sizeof(struct Edge)*maxdegree);
+		if (!M->vertexarray[i].edges) { fprintf(stderr,"cannot malloc map->vertexarray[%d].edges in concat.c\n",i); exit(43); }
+		for(int j=0;j<maxdegree;j++) {
+			M->vertexarray[i].edges[j].vertexindex = -1;
+			M->vertexarray[i].edges[j].edgeindex = -1;
 		}
-	return map;
-}
+	}
+	M->signature = malloc(mapsize * maxdegree * sizeof(unsigned int));
+	return M;
+}//we should add more thing (outline ...) to the map and do the intitialization/free in a dedicated file
 
-//should be implemented along with the free of the signature it contains so that
-//all memory is freed at the end
+//free the map
 void free_map(Map *M){
-
+	for(int i = 0; i< M->vertexnumber; i++){
+		free(M->vertexarray[i].edges);
+	}
+	free(M->vertexarray);
+	free(M);
 }
 
 //all print functions should be put in their own file
@@ -69,11 +71,11 @@ void affichage_dynamique(unsigned long long int numberofbackbone, Hasht *h) {
 		prettyprint2(stdout,h->insertions,"folded maps   ");
 		prettyprint2(stdout,h->elements,"uniq maps");
 		fflush(stdout); 
-		}
+	}
 }
 
 //Main function which create every possible path and then for each call folding_enumeration to create all possible folding
-unsigned long long int generate_paths(int verticesnumber, Hasht *h, Map map, FreeEdge *outline){
+unsigned long long int generate_paths(int verticesnumber, Hasht *h, Map *map, FreeEdge *outline){
 	static unsigned long long int backbonenumber = 0;
   	int i,j, currentsize, currentedge, labelvalues;
   	int *connectionstack = malloc(mapsize*sizeof(int));
@@ -87,52 +89,52 @@ unsigned long long int generate_paths(int verticesnumber, Hasht *h, Map map, Fre
 	  	{ 
 	    	if (non_isomorph(vertices[i].edges,vertices[i].degree,j))//optimization: do not consider two edges which are equivalent in their neighborood for the first vertex
 	    	{
-				map.vertexarray[0].type = i;   //initialize the first vertex of the path
-				map.vertexarray[0].degree = vertices[i].degree;
-				map.edgenumber = vertices[i].degree - mapsize + 3;
+				map->vertexarray[0].type = i;   //initialize the first vertex of the path
+				map->vertexarray[0].degree = vertices[i].degree;
+				map->edgenumber = vertices[i].degree - mapsize + 2;//-mapsize+2 corresponds to the number of edges not used in the signature
 				currentsize=0; //size -1 of the current path
 				connectionstack[0] = 0;
 				labelvalues = label.shift - vertices[i].labelvalue;//the complementay of the current labelvalue
 				currentedge = j; //the edge we want to connect the next vertex to
 				while(currentsize >=0)
 		  		{
-		    		while(currentedge < map.vertexarray[currentsize].degree && (connectionstack[currentsize] == connection[CURRENTLABEL].vertexnumber || ( !almostfoldablepath[currentsize+1][CURRENTLABEL][labelvalues]) ))//move to the next free edge in the current vertex if the previous has been used or cannot be used to generate an almost foldable path
+		    		while(currentedge < map->vertexarray[currentsize].degree && (connectionstack[currentsize] == connection[CURRENTLABEL].vertexnumber || ( !almostfoldablepath[currentsize+1][CURRENTLABEL][labelvalues]) ))//move to the next free edge in the current vertex if the previous has been used or cannot be used to generate an almost foldable path
 		      		//should add a condition with the size in the almostfoldable part
 		      		{
 						connectionstack[currentsize]=0;//reinitialize the possible connections
 						currentedge++;//use the next edge
-						if(currentsize == 0){currentedge =  map.vertexarray[currentsize].degree;}//when dealing with the first vertex skip to the last edge so that the program exit the while loop
+						if(currentsize == 0){currentedge =  map->vertexarray[currentsize].degree;}//when dealing with the first vertex skip to the last edge so that the program exit the while loop
 		      		} 
-		    		if(currentedge < map.vertexarray[currentsize].degree)//test whether there is an edge left to add some motif
+		    		if(currentedge < map->vertexarray[currentsize].degree)//test whether there is an edge left to add some motif
 		      		{
 						//create the new vertex in the map and the corresponding edge 
-						map.vertexarray[currentsize].edges[currentedge].vertexindex = currentsize+1;//create the new edge in the current vertex,  
-						map.vertexarray[currentsize].edges[currentedge].edgeindex=0;  
-						map.vertexarray[currentsize+1].type = connection[CURRENTLABEL].list[connectionstack[currentsize]];
+						map->vertexarray[currentsize].edges[currentedge].vertexindex = currentsize+1;//create the new edge in the current vertex,  
+						map->vertexarray[currentsize].edges[currentedge].edgeindex=0;  
+						map->vertexarray[currentsize+1].type = connection[CURRENTLABEL].list[connectionstack[currentsize]];
 						currentsize++;//the map has now one more vertex
-						labelvalues -=  vertices[map.vertexarray[currentsize].type].labelvalue;//add the value of the labels of the new vertex
-						map.vertexarray[currentsize].degree = vertices[map.vertexarray[currentsize].type].degree;
-						map.edgenumber += map.vertexarray[currentsize].degree;
-						map.vertexarray[currentsize].edges[0].vertexindex = currentsize -1;//could be put in the map once and for all
-						map.vertexarray[currentsize].edges[0].edgeindex = currentedge;//create the edge in the new vertex
+						labelvalues -=  vertices[map->vertexarray[currentsize].type].labelvalue;//add the value of the labels of the new vertex
+						map->vertexarray[currentsize].degree = vertices[map->vertexarray[currentsize].type].degree;
+						map->edgenumber += map->vertexarray[currentsize].degree;
+						map->vertexarray[currentsize].edges[0].vertexindex = currentsize -1;//could be put in the map once and for all
+						map->vertexarray[currentsize].edges[0].edgeindex = currentedge;//create the edge in the new vertex
 						currentedge = 1; //the edge 0 is connected to the previous vertex therefore we consider the next one
 						connectionstack[currentsize]=0;
 		      		}
-		    		if(currentsize == mapsize-1 &&  (labelvalues==label.shift) && smallest_representation(&map) ) //produce a complete backbone when the path is of the right size and the path is almost foldable
+		    		if(currentsize == mapsize-1 &&  (labelvalues==label.shift) && smallest_representation(map) ) //produce a complete backbone when the path is of the right size and the path is almost foldable
 		      		{
 						affichage_dynamique(backbonenumber, h);
 						backbonenumber++;//should increment this value before testing smallest representation and almost foldable
 		        		folding_enumeration(map, h, outline);
 		    		}
-		    		if(currentsize == mapsize-1 || currentedge == map.vertexarray[currentsize].degree)//remove the current vertex if the path is finished or if we have connected all possible vertices to the current vertex
+		    		if(currentsize == mapsize-1 || currentedge == map->vertexarray[currentsize].degree)//remove the current vertex if the path is finished or if we have connected all possible vertices to the current vertex
 		      		{
-						labelvalues +=  vertices[map.vertexarray[currentsize].type].labelvalue;//subtract the labelvalue of the deleted vertex
-						map.edgenumber -= map.vertexarray[currentsize].degree;
-						currentedge = map.vertexarray[currentsize].edges[0].edgeindex;
+						labelvalues +=  vertices[map->vertexarray[currentsize].type].labelvalue;//subtract the labelvalue of the deleted vertex
+						map->edgenumber -= map->vertexarray[currentsize].degree;
+						currentedge = map->vertexarray[currentsize].edges[0].edgeindex;
 						currentsize--;
 						if(currentsize >= 0)
 			  			{
-			    			map.vertexarray[currentsize].edges[currentedge].vertexindex=-1;//remove the edge to the previous current vertex 
+			    			map->vertexarray[currentsize].edges[currentedge].vertexindex=-1;//remove the edge to the previous current vertex 
 			    			connectionstack[currentsize]++; //use the next possible vertex in the future connection
 			  			}
 		    		}
@@ -148,7 +150,7 @@ unsigned long long int generate_paths(int verticesnumber, Hasht *h, Map map, Fre
 
 //Function which create every possible tree and then for each call folding_enumeration to create all possible folding
 
-unsigned long long int generate_trees(int verticesnumber, Hasht *h, Map map, FreeEdge *outline)
+unsigned long long int generate_trees(int verticesnumber, Hasht *h, Map *map, FreeEdge *outline)
 {
   int size=1, free_edge_number=0,i,j,currentvertex,currentedge,currentlabel,newtype;
   static unsigned long long int backbonenumber = 0;
@@ -156,11 +158,11 @@ unsigned long long int generate_trees(int verticesnumber, Hasht *h, Map map, Fre
   pair **enumeration_position = malloc(mapsize*sizeof(pair*));//what is the next connection and in which context does it holds 
   for(i=0;i<mapsize;i++) enumeration_position[i] = malloc(maxdegree*sizeof(pair));
   
-  map.vertexarray[0].type = 0;   //initialize the first vertex of the tree as vertex of type 0
-  map.vertexarray[0].degree = vertices[0].degree;
-  map.edgenumber = vertices[0].degree - mapsize + 3;
+  map->vertexarray[0].type = 0;   //initialize the first vertex of the tree as vertex of type 0
+  map->vertexarray[0].degree = vertices[0].degree;
+  map->edgenumber = vertices[0].degree - mapsize + 2;//-mapsize+2 corresponds to the number of edges not used in the signature
   int labelvalues = vertices[0].labelvalue;
-  for(i=0;i<map.vertexarray[0].degree;i++) //use free_edge_number instead of i ?
+  for(i=0;i<map->vertexarray[0].degree;i++) //use free_edge_number instead of i ?
     {
       edgestack[free_edge_number].first = 0;
       edgestack[free_edge_number].second = i;
@@ -176,16 +178,16 @@ unsigned long long int generate_trees(int verticesnumber, Hasht *h, Map map, Fre
 		free_edge_number--;//the current edge will not be free anymore
 		currentvertex = edgestack[free_edge_number].first;
 		currentedge = edgestack[free_edge_number].second;
-		map.vertexarray[currentvertex].edges[currentedge].vertexindex = size;
-		map.vertexarray[currentvertex].edges[currentedge].edgeindex=0;
-		map.vertexarray[size].edges[0].vertexindex= currentvertex;
-		map.vertexarray[size].edges[0].edgeindex= currentedge;
-		currentlabel = vertices[map.vertexarray[currentvertex].type].edges[currentedge];
+		map->vertexarray[currentvertex].edges[currentedge].vertexindex = size;
+		map->vertexarray[currentvertex].edges[currentedge].edgeindex=0;
+		map->vertexarray[size].edges[0].vertexindex= currentvertex;
+		map->vertexarray[size].edges[0].edgeindex= currentedge;
+		currentlabel = vertices[map->vertexarray[currentvertex].type].edges[currentedge];
 		newtype = connection[currentlabel].list[enumeration_position[currentvertex][currentedge].first];
-		map.vertexarray[size].type = newtype;
+		map->vertexarray[size].type = newtype;
 		labelvalues += vertices[newtype].labelvalue;
-		map.vertexarray[size].degree = vertices[newtype].degree;
-		map.edgenumber += vertices[newtype].degree;
+		map->vertexarray[size].degree = vertices[newtype].degree;
+		map->edgenumber += vertices[newtype].degree;
 	//printf("currentvertex %d currentedge %d currentlabel %d type %d\n",currentvertex,currentedge,currentlabel,newtype);
 		for(i=1;i<vertices[newtype].degree;i++) {
 	  		enumeration_position[size][i].first = 0;
@@ -201,16 +203,16 @@ unsigned long long int generate_trees(int verticesnumber, Hasht *h, Map map, Fre
 	//printf("remove \n");
 			size--;       
 			if(size == 0) break;
-			map.edgenumber -= map.vertexarray[size].degree; 
-			currentvertex = map.vertexarray[size].edges[0].vertexindex;
-			currentedge = map.vertexarray[size].edges[0].edgeindex;
+			map->edgenumber -= map->vertexarray[size].degree; 
+			currentvertex = map->vertexarray[size].edges[0].vertexindex;
+			currentedge = map->vertexarray[size].edges[0].edgeindex;
 	//printf("currentvertex % d currentedge %d\n",currentvertex,currentedge);
 			enumeration_position[currentvertex][currentedge].first++;
 			if(free_edge_number == 0){//case with no free edge usable : we must add back the frozen edges
 	  //printf("add back frozen edges \n");
 	  		for(i=0;i<size;i++){
-	    		for(j=0;j<map.vertexarray[i].degree;j++){
-	      		if(map.vertexarray[i].edges[j].vertexindex == -1 && size < enumeration_position[i][j].second){//if an edge is used in a context we have just changed, free it back
+	    		for(j=0;j<map->vertexarray[i].degree;j++){
+	      		if(map->vertexarray[i].edges[j].vertexindex == -1 && size < enumeration_position[i][j].second){//if an edge is used in a context we have just changed, free it back
 				edgestack[free_edge_number].first = i;
 				edgestack[free_edge_number].second = j;
 				free_edge_number ++;
@@ -220,21 +222,21 @@ unsigned long long int generate_trees(int verticesnumber, Hasht *h, Map map, Fre
 	    }
 	  }
 	}
-	else{free_edge_number += 1 - vertices[map.vertexarray[size].type].degree;}//remove the unused free edges
+	else{free_edge_number += 1 - vertices[map->vertexarray[size].type].degree;}//remove the unused free edges
 	if(size == mapsize-1 ){//case with a full size map
 	  affichage_dynamique(backbonenumber, h);
 	  backbonenumber++;//should increment this value before testing smallest representation and almost foldable
 	  if(!labelvalues)
 	    {
-			map.edgenumber += map.vertexarray[size].degree;	//this is a hack, but the whole function should be changed
+			map->edgenumber += map->vertexarray[size].degree;	//this is a hack, but the whole function should be changed
 	      	folding_enumeration(map, h, outline);
-	      	map.edgenumber -= map.vertexarray[size].degree;	
+	      	map->edgenumber -= map->vertexarray[size].degree;	
 	    }
 	  //printmap(map);
 	}//remove the free edges of the motif 
-	labelvalues -= vertices[map.vertexarray[size].type].labelvalue;
-	currentlabel =  vertices[map.vertexarray[currentvertex].type].edges[currentedge];
-	map.vertexarray[currentvertex].edges[currentedge].vertexindex =-1;
+	labelvalues -= vertices[map->vertexarray[size].type].labelvalue;
+	currentlabel =  vertices[map->vertexarray[currentvertex].type].edges[currentedge];
+	map->vertexarray[currentvertex].edges[currentedge].vertexindex =-1;
 	//printf("currentvertex %d currentedge %d pos %d degree %d currentlabel %d \n",currentvertex,currentedge,enumeration_position[currentvertex][currentedge], connection[currentlabel].vertexnumber,currentlabel);
 	if(enumeration_position[currentvertex][currentedge].first < connection[currentlabel].vertexnumber) //if there is still possible connections add back the edge we have freed by removing the last motif
 	  {

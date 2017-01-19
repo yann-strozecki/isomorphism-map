@@ -125,8 +125,6 @@ int read_input(char* inputname, int *maxdegree){
 //It also compute the fields labelvalue
 
 
-
-
 void normalize_labels(int size, Vertex *vert ){ 
   int i,j,k,labelnumber=0,test;
   label.list = malloc(sizeof(int)*10); //we have at most 10 different labels, should be dynamic 
@@ -189,19 +187,14 @@ void normalize_labels(int size, Vertex *vert ){
   }
 }
 
+
 int non_isomorph(int *list, int size, int sh) { //return false if the list of edges shifted by sh is isomorph to the list shifted by less
-  int i,j, test;
-  for(i=0; i < sh; i++) {
-   test = 1;
-   for(j=0; j<size; j++) {
-    if ( list[(j+i) % size] != list[(i + sh) % size]) {
-     test = 0;
-     break;
-   }
- }
- if(test) return 0;
-}
-return 1;
+  int j;
+  for(int i=0; i < sh; i++) {
+    for(j = 0; j < size || list[(j+i) % size] != list[(i + sh) % size];j++);
+    if(j==size) return 0;
+  }
+  return 1;
 }
 
  //Add to the list of vertices all vertices with a rotation on their edges (and do not add isomorphic copies of a vertex), return the number of vertices
@@ -273,7 +266,6 @@ void almost_foldable_tree(int vertexnumber, Vertex *vert)
       }
     }
   }
-  printf("Fin de la création de la matrice \n");
   //printmatrixtree(mat,size,maxsize,MAGICNUMBER,alphabetsize);
 }
 
