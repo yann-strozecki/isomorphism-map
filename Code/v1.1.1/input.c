@@ -39,18 +39,6 @@ void printbinary(int code, int size)
   }
 }
 
-void printindex(int code, int codesize, int base){
-  int i,temp;
-  printf("Index %d (",code);
-  for(i=0;i<codesize;i++)
-  {
-    temp = code%base - base/2;
-    printf("%d ", temp);
-    code /= base;
-  }
-  printf(")");
-}
-
 void printmatrix(unsigned int ***mat, int dim1, int dim2,int dim3)
 {
   int i,j,k;
@@ -62,7 +50,7 @@ void printmatrix(unsigned int ***mat, int dim1, int dim2,int dim3)
      for(k=0;k<dim3;k++)
      {
        if(mat[i][j][k]){
-         printindex(k,label.size/2,label.maxlabelnumber);
+         printf("%d",k); //we should decode this value
          printf("Set ");
          printbinary(mat[i][j][k],dim2);
          printf("; ");
@@ -81,7 +69,7 @@ void printmatrixtree(unsigned int **mat, int dim1, int dim2,int magicnumber,int 
   {
     printf("\n Complementary size %d\n",i);
     for(j=0;j<dim2;j++){
-     if( mat[i][j])	printindex(j,codesize,magicnumber);
+     if( mat[i][j])	printf("%d",j);
    }
    printf("\n");
  }
@@ -121,72 +109,72 @@ int read_input(char* inputname, int *maxdegree){
 
 //Index the labels by their order of apparition in vertices and store that in label. 
 //The negative labels are stored after the positive ones in the same order
-//Return the number of different labels.
-//It also compute the fields labelvalue
-
 
 void normalize_labels(int size, Vertex *vert ){ 
-  int i,j,k,labelnumber=0,test;
+  int i,j,k,labelnumber=0;
   label.list = malloc(sizeof(int)*10); //we have at most 10 different labels, should be dynamic 
   for(i=0; i < size; i++) {//create label.list
     for(j=0; j < vert[i].degree; j++) {
-      test = 1;
-      for(k=0; k< labelnumber;k++) {
-       if(label.list[k] == abs(vert[i].edges[j])) {
-          test = 0;
-          break;
-        }
-      }
-      if(test) {
-       label.list[labelnumber] = abs(vert[i].edges[j]);
-       labelnumber++;
+      for(k=0; k< labelnumber && label.list[k] != abs(vert[i].edges[j]);k++);
+      if(k == labelnumber) {
+        label.list[labelnumber] = abs(vert[i].edges[j]);
+        labelnumber++;
       }
     }
   }
-  label.maxlabelnumber = 0;
   for(i=0;i <labelnumber;i++){label.list[labelnumber+i] = -label.list[i];}
-  // change the labels to their indices in label.list and compute the largest number edge with the same label
-  // minus the edges with the complementary label on a single vertex
   label.size = 2*labelnumber; 
-  int *label_count = calloc(labelnumber,sizeof(int));
   for(i=0; i < size; i++){ 
     for(j=0; j < vert[i].degree; j++){
       k=0;
       while(label.list[k] != vert[i].edges[j]) {k++;}
       vert[i].edges[j] = k;
-      if(k < labelnumber){
-        label_count[k]++;
-      }
-      else{
-        label_count[k-labelnumber]--;
-      }
-    }
-    for(int l = 0; l < labelnumber; l++){//compute the maximal number of labels in the vertex and update if necessary the global max
-      if(label.maxlabelnumber < abs(label_count[l])){ label.maxlabelnumber = abs(label_count[l]);} 
-    }
-  }
-  free(label_count);
-  label.maxlabelnumber = (label.maxlabelnumber*mapsize)*2; //the size of the interval of the possible values 
-  //could be divided by two, but need to modify the generation of path and trees with an additionnal check
-  for(int l = 1; l <= labelnumber; l++) label.shift += (int) pow(label.maxlabelnumber,l) /2;//used to shift all labelvalues so that they are all positive
-  //a labelvalue equal shift correspond to zero
-  //it is a bound on the maximal negative values
-
-  printf(" \n Max number of free labels of the same type in a tree %d \n Shift to encode labelvalues %d\n",label.maxlabelnumber,label.shift);
-  //compute the labelvalue of each vertex by adding the value of the label of each edge
-  for(i=0; i < size; i++){ 
-    vert[i].labelvalue = 0;
-    for(j=0; j < vert[i].degree; j++) { 
-      if(vert[i].edges[j] < labelnumber) {
-        vert[i].labelvalue += (int)pow(label.maxlabelnumber,vert[i].edges[j]);
-      }
-      else {
-        vert[i].labelvalue -= (int)pow(label.maxlabelnumber,vert[i].edges[j]-labelnumber);
-      }
     }
   }
 }
 
+//Compute the field labelvalue of eachvertex and label.shift
+void compute_label_values(int size, Vertex * vert){
+  int labelnumber = label.size/2;
+  int *label_count = calloc(labelnumber,sizeof(int));
+  int *label_max = calloc(labelnumber+1,sizeof(int));
+  for(int i=0; i < size; i++){ 
+    for(int j=0; j < vert[i].degree; j++){
+      if(vert[i].edges[j]< labelnumber){
+        label_count[vert[i].edges[j]]++;
+      }
+      else{
+        label_count[vert[i].edges[j]-labelnumber]--;
+      }
+    }
+    for(int l = 0; l < labelnumber; l++){//update the maximal numbero of label of each type
+      if( label_max[l] < abs(label_count[l])){ label_max[l] = abs(label_count[l]);} 
+    }
+  }
+  free(label_count);
+
+  label_max[labelnumber] = 1;
+  label.shift = 0;
+  for(int l = labelnumber-1; l >=0; l--){
+    //printf("Label %d repeted at most %d times \n",l,label_max[l]*mapsize*2);
+    label_max[l] *= mapsize*2*label_max[l+1]; //could be divided by two, but need to modify the generation of path and trees with an additionnal check
+    label.shift += label_max[l]/2;
+  } //it is a bound on the maximal positive values
+  //compute the labelvalue of each vertex by adding the value of the label of each edge
+  for(int i=0; i < size; i++){ 
+    vert[i].labelvalue = 0;
+    for(int j=0; j < vert[i].degree; j++) { 
+      if(vert[i].edges[j] < labelnumber) {
+        vert[i].labelvalue += label_max[vert[i].edges[j]+1];
+      }
+      else {
+        vert[i].labelvalue -= label_max[vert[i].edges[j]-labelnumber+1];
+      }
+    }
+  }
+  free(label_max);
+  //printf(" Max value of a tree %d\n",label.shift*2);
+}
 
 int non_isomorph(int *list, int size, int sh) { //return false if the list of edges shifted by sh is isomorph to the list shifted by less
   int j;
@@ -198,32 +186,32 @@ int non_isomorph(int *list, int size, int sh) { //return false if the list of ed
 }
 
  //Add to the list of vertices all vertices with a rotation on their edges (and do not add isomorphic copies of a vertex), return the number of vertices
-////when the vertices are meta vertices add also the relevant maps and outlines to translation and outlinearray 
-Vertex *create_rotated_vertices(int size, int *newsize, Vertex *vert){
-  int i,j,k,maxverticesnumber=0,verticesnumber=size;
-  for(i=0;i<size;i++)
+//Could allocate the exact number of vertices, to spare some memory
+Vertex *create_rotated_vertices(int *size, Vertex *vert){
+  int i,j,k,maxverticesnumber=0,verticesnumber=*size;
+  for(i=0;i<*size;i++)
   {
     maxverticesnumber+= vert[i].degree;
   }
   vert = realloc(vert, maxverticesnumber*sizeof(Vertex));
-  for(i=0;i<size;i++)//for each vertex add a rotated version if it is not already there 
+  for(i=0;i<*size;i++)//for each vertex add a rotated version if it is not already there 
   {
     for(j=1; j < vert[i].degree;j++)
     {
      if(non_isomorph(vert[i].edges, vert[i].degree,j))
      {
-       vert[verticesnumber] =  vert[i];
-       vert[verticesnumber].edges = malloc(sizeof(int)*vert[i].degree);
-       for(k=0; k < vert[i].degree; k++)
-       {
-        vert[verticesnumber].edges[k] =  vert[i].edges[(j+k) % vert[i].degree];
+        vert[verticesnumber] =  vert[i];
+        vert[verticesnumber].edges = malloc(sizeof(int)*vert[i].degree);
+        for(k=0; k < vert[i].degree; k++)
+        {
+          vert[verticesnumber].edges[k] =  vert[i].edges[(j+k) % vert[i].degree]; 
+        }
+        verticesnumber++;
       }
-      verticesnumber++;
     }
   }
-}
-*newsize = verticesnumber;
-return vert;
+  *size = verticesnumber;
+  return vert;
 }
 
 //Create an helper array with for each label the vertices which can be connected by their first edge to this label
@@ -248,7 +236,8 @@ void create_concatenation_helper(int size, Vertex * vert)
 
 
 //Create a multidimensional table which contains the information about the almost foldable trees
-
+//could be improved by ensuring that the elements built are trees and not forest by storing the set of free
+//edges as in almost foldable tree
 
 void almost_foldable_tree(int vertexnumber, Vertex *vert)
 {
@@ -313,11 +302,16 @@ void almost_foldable_path(int vertexnumber, Vertex *vert)
     {
       almostfoldablepath[mapsize-1][value][vert[i].labelvalue + label.shift] |= 1<<vert[i].edges[j];//add a free edge to the possible end of the path of size 1
     }
-    add_after_a_label[value][sizes[value]].first = vert[i].labelvalue;//first is the labelvalue
-    add_after_a_label[value][sizes[value]].second = almostfoldablepath[mapsize-1][value][vert[i].labelvalue + label.shift];//second is the set of labels of ending edges we have just computed
-    sizes[value]++;
-    //TODO: detecting equal labelvalues and storing the union 
-    //printf("add labelvalue %d label %d bitset %d vertexnumber %d\n",vert[i].labelvalue,value,almostfoldablepath[mapsize-1][value][vert[i].labelvalue+label.shift],i);
+    for(k=0;k < sizes[value] && add_after_a_label[value][k].first != vert[i].labelvalue; k++);
+    if(k == sizes[value]){//a new labelvalue is found
+      add_after_a_label[value][sizes[value]].first = vert[i].labelvalue;//first is the labelvalue
+      add_after_a_label[value][sizes[value]].second = almostfoldablepath[mapsize-1][value][vert[i].labelvalue + label.shift];//second is the set of labels of ending edges we have just computed
+      sizes[value]++;
+      //printf("add labelvalue %d label %d bitset %d vertexnumber %d\n",vert[i].labelvalue,value,almostfoldablepath[mapsize-1][value][vert[i].labelvalue+label.shift],i);
+    }
+    else{//the same labelvalue is stored at position k, update the bitset only (by union)
+      add_after_a_label[value][k].second |= almostfoldablepath[mapsize-1][value][vert[i].labelvalue + label.shift]; 
+    }
   }
 
   ///// Incremental build of almostfoldablepath ////////////////////////////

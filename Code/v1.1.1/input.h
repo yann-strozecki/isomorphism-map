@@ -4,9 +4,9 @@ int read_concat(char* inputname, Map *translation);
 
 void normalize_labels(int size, Vertex *vert);
 
-Vertex * create_metavertices(int motifnumber);
+void compute_label_values(int size, Vertex * vert);
 
-Vertex *create_rotated_vertices(int size,int *newsize, Vertex *vert);
+Vertex *create_rotated_vertices(int *size, Vertex *vert);
 
 void create_concatenation_helper(int size,  Vertex * vert);
 

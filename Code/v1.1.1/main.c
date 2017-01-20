@@ -31,20 +31,22 @@ int main (int argc, char *argv[])
 	printf("1. Read of the input file: %s, Size = %d. \n Creation of the data structures.\n",argv[1],mapsize);
 
 
-	int vertexnumber, vertexconcatnumber;//virer vertices et vertexconcatnumber
+	int vertexnumber;//could be in a struct (maybe with the list of label and its size, and 
+  //the list of Vertices and  its size)
 	vertexnumber = read_input (argv[1], &maxdegree);
   //printvertices(vertexnumber,vertices);
 	normalize_labels(vertexnumber, vertices);
+  compute_label_values(vertexnumber, vertices);
   //for(i=0;i<label.size;i++) printf("label %d : %d ",i,label.list[i]);
   //printvertices(vertexnumber,vertices);
-	vertices = create_rotated_vertices(vertexnumber,&vertexconcatnumber,vertices);
-  //printvertices(vertexconcatnumber,vertices);
-	create_concatenation_helper(vertexconcatnumber, vertices);
+	vertices = create_rotated_vertices(&vertexnumber,vertices);
+  //printvertices(vertexnumber,vertices);
+	create_concatenation_helper(vertexnumber, vertices);
   //printcompatible(label.size);
   if(BACKBONETYPE){
-  	almost_foldable_path(vertexconcatnumber, vertices);
+  	almost_foldable_path(vertexnumber, vertices);
   }else{
-  	almost_foldable_tree(vertexconcatnumber, vertices);
+  	almost_foldable_tree(vertexnumber, vertices);
   }
 
   /********* structures useful for the concat and the fold, memory allocation once and for all here **********/
@@ -113,7 +115,7 @@ int main (int argc, char *argv[])
   		free(almostfoldabletree);
   }
 
-  for (i=0 ; i < vertexconcatnumber ; i++) free(vertices[i].edges);
+  for (i=0 ; i < vertexnumber ; i++) free(vertices[i].edges);
   free(vertices);
   for (i=0 ; i<label.size ; i++) free(connection[i].list);
   free(connection);

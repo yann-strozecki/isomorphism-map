@@ -11,6 +11,7 @@
 
 
 //most of the int could be char to make it more memory efficient (cache efficient ?)
+//at least some struct could pack 4 char instead of 4 int
 //everything could be unsigned too
 
 
@@ -45,12 +46,11 @@ typedef struct pair {
 typedef struct Label {
 	int *list;// array of the value of the labels in the .mot (only the positive ones)
 	int size; //number of different labels
-	int maxlabelnumber; // maximum number of a single label in an almost foldable map of size mapsize 
 	int shift;//shift of the label value, computed at the same time as maxlabelnumber 
 } Label; //Label and compatibleVertices could be unified
 
 
-typedef struct Vertex {  //An array of all possible vertices is built at the beginning of the algorithm 
+typedef struct Vertex {  //Used in an array of all possible vertices is built at the beginning of the algorithm 
 	int letter; // Integer that gives the rank of the letter in the alphabet 9 for I, 10 for J, 22 for V, ...
 	int degree; // Number of edges
 	int id; // Position in the .mot file 
@@ -76,7 +76,7 @@ typedef struct FreeEdge {  //a free edge in the graph
 typedef struct Edge {
 	int vertexindex;//vertex connected to the edge
 	int edgeindex;//position of this edge in the neighborood of the end vertex
-  	int val;//partial signature containing (edge label, vertex id)
+  int val;//partial signature containing (edge label, vertex id)
 } Edge; 
 
 typedef struct VertexMap {
