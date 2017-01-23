@@ -1,0 +1,172 @@
+   0.000 sec     0 quasi-uniq backbones     0 folded maps     0 uniq maps [-1.000 -1.000 -1.000] cutindex
+   0.000 sec   512 quasi-uniq backbones     0 folded maps     0 uniq maps [-1.000 -1.000 -1.000] cutindex
+   0.001 sec   1 024 quasi-uniq backbones     0 folded maps     0 uniq maps [-1.000 -1.000 -1.000] cutindex
+   0.001 sec   2 048 quasi-uniq backbones     0 folded maps     0 uniq maps [-1.000 -1.000 -1.000] cutindex
+   0.003 sec   4 096 quasi-uniq backbones     3 folded maps     2 uniq maps [0.250 0.250 0.250] cutindex
+   0.007 sec   8 192 quasi-uniq backbones    11 folded maps     7 uniq maps [0.250 0.250 0.429] cutindex
+   0.010 sec   16 384 quasi-uniq backbones    11 folded maps     7 uniq maps [0.250 0.250 0.429] cutindex
+   0.055 sec   32 768 quasi-uniq backbones   232 folded maps    99 uniq maps [0.250 0.250 0.500] cutindex
+   0.089 sec   65 536 quasi-uniq backbones   361 folded maps   100 uniq maps [0.250 0.429 0.500] cutindex
+   0.316 sec   131 072 quasi-uniq backbones   2 429 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   0.399 sec   262 144 quasi-uniq backbones   2 632 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   1.674 sec   524 288 quasi-uniq backbones   23 183 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   1.774 sec   655 360 quasi-uniq backbones   24 183 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   1.942 sec   786 432 quasi-uniq backbones   26 317 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   2.324 sec   917 504 quasi-uniq backbones   39 903 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   2.469 sec   1 048 576 quasi-uniq backbones   43 747 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   3.029 sec   1 179 648 quasi-uniq backbones   59 946 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   3.151 sec   1 310 720 quasi-uniq backbones   63 975 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   3.365 sec   1 441 792 quasi-uniq backbones   75 377 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   3.456 sec   1 572 864 quasi-uniq backbones   77 043 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   3.602 sec   1 835 008 quasi-uniq backbones   80 580 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   4.031 sec   2 097 152 quasi-uniq backbones   96 298 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   4.754 sec   2 359 296 quasi-uniq backbones   116 560 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   5.614 sec   2 621 440 quasi-uniq backbones   149 284 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   5.994 sec   2 883 584 quasi-uniq backbones   169 799 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   6.356 sec   3 145 728 quasi-uniq backbones   187 295 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   6.799 sec   3 407 872 quasi-uniq backbones   214 291 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   7.019 sec   3 670 016 quasi-uniq backbones   232 696 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   8.323 sec   3 932 160 quasi-uniq backbones   292 188 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   9.080 sec   4 063 232 quasi-uniq backbones   339 365 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   9.589 sec   4 194 304 quasi-uniq backbones   377 820 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   9.947 sec   4 325 376 quasi-uniq backbones   423 855 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  10.211 sec   4 456 448 quasi-uniq backbones   451 196 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  10.397 sec   4 587 520 quasi-uniq backbones   466 014 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  10.467 sec   4 718 592 quasi-uniq backbones   469 019 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  10.934 sec   4 980 736 quasi-uniq backbones   502 294 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  11.170 sec   5 242 880 quasi-uniq backbones   521 507 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  11.413 sec   5 505 024 quasi-uniq backbones   547 273 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  11.626 sec   5 767 168 quasi-uniq backbones   567 406 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  11.864 sec   6 029 312 quasi-uniq backbones   591 874 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  12.013 sec   6 291 456 quasi-uniq backbones   600 194 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  12.226 sec   6 553 600 quasi-uniq backbones   612 220 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  12.476 sec   6 815 744 quasi-uniq backbones   630 146 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  12.654 sec   7 077 888 quasi-uniq backbones   643 378 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  12.911 sec   7 340 032 quasi-uniq backbones   664 310 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  13.038 sec   7 602 176 quasi-uniq backbones   668 492 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  13.254 sec   7 864 320 quasi-uniq backbones   688 378 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  13.375 sec   8 126 464 quasi-uniq backbones   692 002 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  13.505 sec   8 388 608 quasi-uniq backbones   694 000 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  13.749 sec   8 650 752 quasi-uniq backbones   711 912 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  13.884 sec   8 912 896 quasi-uniq backbones   715 160 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  14.209 sec   9 175 040 quasi-uniq backbones   739 445 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  14.362 sec   9 437 184 quasi-uniq backbones   746 416 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  14.606 sec   9 699 328 quasi-uniq backbones   769 206 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  14.744 sec   9 961 472 quasi-uniq backbones   775 481 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  14.996 sec   10 223 616 quasi-uniq backbones   792 214 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  15.252 sec   10 485 760 quasi-uniq backbones   809 126 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  15.512 sec   10 747 904 quasi-uniq backbones   833 495 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  15.794 sec   11 010 048 quasi-uniq backbones   861 491 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  16.038 sec   11 272 192 quasi-uniq backbones   885 435 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  16.281 sec   11 534 336 quasi-uniq backbones   907 914 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  17.335 sec   11 796 480 quasi-uniq backbones   967 916 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  17.762 sec   11 927 552 quasi-uniq backbones   1 014 700 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  18.086 sec   12 058 624 quasi-uniq backbones   1 063 643 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  18.320 sec   12 189 696 quasi-uniq backbones   1 096 327 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  18.506 sec   12 320 768 quasi-uniq backbones   1 117 102 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  18.571 sec   12 451 840 quasi-uniq backbones   1 119 709 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  18.719 sec   12 582 912 quasi-uniq backbones   1 136 659 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  18.927 sec   12 845 056 quasi-uniq backbones   1 155 464 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  19.191 sec   13 107 200 quasi-uniq backbones   1 182 986 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  19.437 sec   13 369 344 quasi-uniq backbones   1 207 144 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  19.652 sec   13 631 488 quasi-uniq backbones   1 226 040 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  19.847 sec   13 893 632 quasi-uniq backbones   1 241 406 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  20.033 sec   14 155 776 quasi-uniq backbones   1 255 094 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  20.185 sec   14 417 920 quasi-uniq backbones   1 262 737 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  20.421 sec   14 680 064 quasi-uniq backbones   1 283 753 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  20.627 sec   14 942 208 quasi-uniq backbones   1 300 412 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  20.748 sec   15 204 352 quasi-uniq backbones   1 303 678 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  20.955 sec   15 466 496 quasi-uniq backbones   1 321 057 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  21.087 sec   15 728 640 quasi-uniq backbones   1 325 281 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  21.315 sec   15 990 784 quasi-uniq backbones   1 344 054 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  21.481 sec   16 252 928 quasi-uniq backbones   1 353 115 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  21.718 sec   16 515 072 quasi-uniq backbones   1 372 645 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  21.845 sec   16 777 216 quasi-uniq backbones   1 376 147 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  22.045 sec   17 039 360 quasi-uniq backbones   1 390 029 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  22.165 sec   17 301 504 quasi-uniq backbones   1 391 936 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  22.330 sec   17 563 648 quasi-uniq backbones   1 400 835 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  22.453 sec   17 825 792 quasi-uniq backbones   1 403 455 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  23.025 sec   18 087 936 quasi-uniq backbones   1 473 793 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  23.451 sec   18 350 080 quasi-uniq backbones   1 523 140 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  23.698 sec   18 612 224 quasi-uniq backbones   1 545 961 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  23.979 sec   18 874 368 quasi-uniq backbones   1 571 227 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  24.139 sec   19 136 512 quasi-uniq backbones   1 578 227 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  24.324 sec   19 398 656 quasi-uniq backbones   1 587 456 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  24.546 sec   19 660 800 quasi-uniq backbones   1 601 566 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  24.751 sec   19 922 944 quasi-uniq backbones   1 612 312 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  24.994 sec   20 185 088 quasi-uniq backbones   1 630 536 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  25.267 sec   20 447 232 quasi-uniq backbones   1 655 077 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  25.537 sec   20 709 376 quasi-uniq backbones   1 678 568 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  25.947 sec   20 971 520 quasi-uniq backbones   1 723 833 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  26.522 sec   21 233 664 quasi-uniq backbones   1 798 138 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  26.649 sec   21 495 808 quasi-uniq backbones   1 800 505 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  26.828 sec   21 757 952 quasi-uniq backbones   1 809 771 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  26.952 sec   22 020 096 quasi-uniq backbones   1 811 603 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  27.203 sec   22 282 240 quasi-uniq backbones   1 828 779 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  27.530 sec   22 544 384 quasi-uniq backbones   1 857 281 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  27.749 sec   22 806 528 quasi-uniq backbones   1 868 769 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  28.101 sec   23 068 672 quasi-uniq backbones   1 897 971 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  28.260 sec   23 330 816 quasi-uniq backbones   1 903 955 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  28.534 sec   23 592 960 quasi-uniq backbones   1 928 958 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  28.730 sec   23 855 104 quasi-uniq backbones   1 939 892 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  28.852 sec   24 117 248 quasi-uniq backbones   1 941 350 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  29.013 sec   24 379 392 quasi-uniq backbones   1 948 911 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  29.250 sec   24 641 536 quasi-uniq backbones   1 966 296 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  29.446 sec   24 903 680 quasi-uniq backbones   1 978 106 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  31.226 sec   25 165 824 quasi-uniq backbones   2 059 079 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  31.756 sec   25 296 896 quasi-uniq backbones   2 109 956 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  32.123 sec   25 427 968 quasi-uniq backbones   2 149 583 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  32.894 sec   25 559 040 quasi-uniq backbones   2 186 495 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  33.662 sec   25 690 112 quasi-uniq backbones   2 235 555 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  34.057 sec   25 821 184 quasi-uniq backbones   2 282 317 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  34.745 sec   25 952 256 quasi-uniq backbones   2 347 312 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  35.683 sec   26 083 328 quasi-uniq backbones   2 452 568 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  36.256 sec   26 214 400 quasi-uniq backbones   2 523 035 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  36.578 sec   26 345 472 quasi-uniq backbones   2 561 475 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  37.006 sec   26 476 544 quasi-uniq backbones   2 601 395 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  37.501 sec   26 607 616 quasi-uniq backbones   2 660 422 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  38.164 sec   26 738 688 quasi-uniq backbones   2 754 934 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  38.345 sec   26 869 760 quasi-uniq backbones   2 772 845 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  38.441 sec   27 000 832 quasi-uniq backbones   2 777 911 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  38.606 sec   27 262 976 quasi-uniq backbones   2 785 684 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  38.864 sec   27 525 120 quasi-uniq backbones   2 807 743 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  39.252 sec   27 787 264 quasi-uniq backbones   2 844 884 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  39.519 sec   28 049 408 quasi-uniq backbones   2 867 568 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  39.669 sec   28 311 552 quasi-uniq backbones   2 872 772 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  39.864 sec   28 573 696 quasi-uniq backbones   2 883 360 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  40.573 sec   28 835 840 quasi-uniq backbones   2 971 956 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  41.917 sec   29 097 984 quasi-uniq backbones   3 155 254 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  42.403 sec   29 229 056 quasi-uniq backbones   3 222 465 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  42.985 sec   29 360 128 quasi-uniq backbones   3 302 928 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  43.374 sec   29 491 200 quasi-uniq backbones   3 353 442 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  43.667 sec   29 622 272 quasi-uniq backbones   3 389 253 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  44.068 sec   29 753 344 quasi-uniq backbones   3 441 223 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  44.448 sec   29 884 416 quasi-uniq backbones   3 489 365 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  44.800 sec   30 015 488 quasi-uniq backbones   3 533 924 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  45.078 sec   30 146 560 quasi-uniq backbones   3 565 536 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  45.485 sec   30 277 632 quasi-uniq backbones   3 615 514 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  45.882 sec   30 408 704 quasi-uniq backbones   3 661 248 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  46.044 sec   30 539 776 quasi-uniq backbones   3 676 170 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  46.158 sec   30 670 848 quasi-uniq backbones   3 684 401 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  46.254 sec   30 801 920 quasi-uniq backbones   3 689 343 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  46.322 sec   30 932 992 quasi-uniq backbones   3 690 838 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  46.772 sec   31 457 280 quasi-uniq backbones   3 718 461 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  47.182 sec   31 981 568 quasi-uniq backbones   3 744 964 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  47.602 sec   32 505 856 quasi-uniq backbones   3 769 738 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  48.111 sec   33 030 144 quasi-uniq backbones   3 812 315 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  48.567 sec   33 554 432 quasi-uniq backbones   3 842 515 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  49.349 sec   34 078 720 quasi-uniq backbones   3 924 324 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  50.165 sec   34 603 008 quasi-uniq backbones   4 003 818 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  50.585 sec   35 127 296 quasi-uniq backbones   4 023 061 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  51.195 sec   35 651 584 quasi-uniq backbones   4 047 732 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  52.294 sec   36 175 872 quasi-uniq backbones   4 162 460 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  53.346 sec   36 438 016 quasi-uniq backbones   4 298 878 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  54.039 sec   36 569 088 quasi-uniq backbones   4 363 459 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  54.562 sec   36 700 160 quasi-uniq backbones   4 430 988 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  55.001 sec   36 831 232 quasi-uniq backbones   4 488 575 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  55.403 sec   36 962 304 quasi-uniq backbones   4 542 268 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  55.750 sec   37 093 376 quasi-uniq backbones   4 585 861 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  55.887 sec   37 224 448 quasi-uniq backbones   4 596 152 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  56.046 sec   37 355 520 quasi-uniq backbones   4 608 311 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+  56.141 sec   37 486 592 quasi-uniq backbones   4 610 213 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
+   56.454 sec   37 748 736 quasi-uniq backbones   4 619 232 folded maps   100 uniq maps [0.200 0.500 0.667] cutindex
