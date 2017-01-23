@@ -31,9 +31,9 @@ int main (int argc, char *argv[])
 	printf("1. Read of the input file: %s, Size = %d. \n Creation of the data structures.\n",argv[1],mapsize);
 
 
-	int vertexnumber;//could be in a struct (maybe with the list of label and its size, and 
+	int vertexnumber = read_input (argv[1], &maxdegree);//could be in a struct (maybe with the list of label and its size, and 
   //the list of Vertices and  its size)
-	vertexnumber = read_input (argv[1], &maxdegree);
+  different_vertex = vertexnumber;
   //printvertices(vertexnumber,vertices);
 	normalize_labels(vertexnumber, vertices);
   compute_label_values(vertexnumber, vertices);
@@ -82,31 +82,29 @@ int main (int argc, char *argv[])
   //val_addr = malloc(mapsize*maxdegree*sizeof(int*));
 
   //Get multiplicity of fewest populated edge for each type of vertex
-  int *edge_multiplicity = calloc(label.size,sizeof(int));
-  int min_occurence, current_degree = 0;
-  for (i = 0;i < vertexnumber;i++){
-    for (j = 0;j < vertices[i].degree;j++){
-      edge_multiplicity[vertices[i].edges[j]]++;
+  int *label_multiplicity = calloc(label.size,sizeof(int));
+  label_min = malloc(vertexnumber*sizeof(int));
+  label_min_nb = malloc(vertexnumber*sizeof(int));
+  vertex_type_number = calloc(vertexnumber,sizeof(int));
+  int min_occurence, pos_min;
+  for (i = 0; i < vertexnumber;i++){
+    for(j = 0; j < vertices[i].degree;j++){
+      label_multiplicity[vertices[i].edges[j]]++;
     }
-    min_occurence = vertices[i].degree + 1;
-    for (j = 0;j < label.size;j++){
-      if (edge_multiplicity[j] != 0 && edge_multiplicity[j] <= min_occurence){
-        if(edge_multiplicity[j] < min_occurence || (edge_multiplicity[j] == min_occurence && vertices[i].degree > current_degree)){
-          //change the element when the multiplicity is strictly less or the degree is larger
-          min_occurence = edge_multiplicity[j];
-          rarest_vertex_id = i;
-          rarest_edge_label = j;
-          current_degree = vertices[i].degree;
-        }
+    min_occurence = vertices[i].degree+1;
+    pos_min = -1;
+    for(j = 0;j < label.size;j++){
+      if(label_multiplicity[j] && (min_occurence > label_multiplicity[j])){
+        pos_min = j;
+        min_occurence = label_multiplicity[j];
       }
-      edge_multiplicity[j] = 0;
+      label_multiplicity[j] = 0;
     }
+    label_min[i] = pos_min;
+    label_min_nb[i] = min_occurence;
+    printf("Vertex %d less frequent label %d number of occurences %d\n",i,label_min[i],label_min_nb[i]);
   }
-  rarest_vertex_id = vertices[rarest_vertex_id].id;
-  printf("Signature begins by vertex %d and edges %d \n",rarest_vertex_id,rarest_edge_label);
-  //Select privileged vertex to be the one with the maximum degree among vertices with the fewest minimum edge multiplicity
-  free(edge_multiplicity);
-
+  free(label_multiplicity);
 
   /************************************** The generation procedure *************************************************/
   chrono();
@@ -161,6 +159,9 @@ int main (int argc, char *argv[])
   free(rank);
   free(stack_edge);
   free(stack_vertex);
+  free(label_min);
+  free(label_min_nb);
+  free(vertex_type_number); 
   chrono();
   printf("## END ##\n");
 return 0;
