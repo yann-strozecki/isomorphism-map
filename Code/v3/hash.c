@@ -3,11 +3,12 @@
 
 unsigned int hash_basic(unsigned int* tab){//the size of the tab is written in the first element
   unsigned  int res = tab[0];
+  //printf("Size of the signature %d \n",res);
   for (int i = 1; i< tab[0]; i++){
-    res ^= (tab[i] << i) | (tab[i] >> (32 - i));  
+    res ^= (tab[i] << i) | (tab[i] >> (sizeof(int)*8 - i));  
   }
   return (res%HASH_SIZE);
-}
+} 
 
 Heap* initialize_heap(){
   Heap* hp = malloc(sizeof(Heap));
@@ -138,5 +139,5 @@ void free_hasht(Hasht *h){
 
 void hash_insert(Hasht* h, Map* M){
   signature_compute(M);
-  insert_hasht(h, M->signature); //bug sur edgenumber pour les arbres
+  insert_hasht(h, M->signature); 
 }

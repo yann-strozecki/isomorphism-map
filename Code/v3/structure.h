@@ -106,5 +106,8 @@ int mapsize,maxdegree,maxoutlinesize;
 int *previous,*mat,*foldable_with,**fold_matrix,*call_stack;
 pair *to_fold,*folded;
 int *rank, *stack_edge, *stack_vertex;
+//int **val_addr;//used to compute the size of the faces of the map
+int rarest_vertex_id;// id of the privileged vertex (but still present)
+int rarest_edge_label;// label of the fewest populated edge of the privileged vertex
 
 #endif

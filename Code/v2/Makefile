@@ -1,5 +1,5 @@
 CC= gcc
-CFLAGS= -O1 -Wall -std=c11 -c -g
+CFLAGS= -O2 -Wall -std=c11 -c -g 
 POSTFLAGS= -lm 
 
 kekule: main.o input.o concat.o fold.o signature.o chrono.o hash.o 
@@ -106,7 +106,7 @@ debug: clean kekule
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./kekule ../Examples/testIVV.mot 6
 
 profile: clean kekule
-	valgrind --tool=callgrind ./kekule ../Examples/testIVV.mot 15
+	valgrind --tool=callgrind ./kekule ../Examples/testIVV.mot 18
 	kcachegrind
 
 git: clean

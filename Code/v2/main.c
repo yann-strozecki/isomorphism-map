@@ -79,6 +79,7 @@ int main (int argc, char *argv[])
   rank = malloc(mapsize*sizeof(int)); 
   stack_edge = malloc(mapsize*maxdegree*sizeof(int));
   stack_vertex = malloc(mapsize*maxdegree*sizeof(int));
+  val_addr = malloc(mapsize*maxdegree*sizeof(int*));
 
   /************************************** The generation procedure *************************************************/
   chrono();

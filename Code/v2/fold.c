@@ -31,14 +31,11 @@ void printoutline(FreeEdge *outline, int outlinesize){
 }
 
 
-//compute the outline of a Map with unconnected edge if it is a tree (should traverse the outer face in the case of a planar graph)
+//compute the outline of a Map with unconnected edges if it is a tree (traverse the outer face in the case of a planar graph)
 //use the fact that going down a vertex is the first in the next 
-//could we do it along the creaton of the tree ?
+//we could do it along the creation of a path for a small performance gain
 
 int computeoutline(Map *map, FreeEdge *outline, Vertex* vert){
-//if(!BACKBONETYPE){
-//
-//}
 	int vertex=0, edge=0, outlinesize = 0, nextvertex;
 	do{
     //printf("vertex : %d, edge : %d\n",vertex,edge);
@@ -59,14 +56,14 @@ int computeoutline(Map *map, FreeEdge *outline, Vertex* vert){
     	if(edge == map->vertexarray[vertex].degree) {edge = 0;} //next edge in the neighborood 
   	}while(vertex || edge ); //stop when we are back to the first vertex and edge
   	return outlinesize;
-  }
+}
 
 int is_foldable(FreeEdge *w, int length){//return true when the backbone is foldable
-	int i,j=1,counter=0;
-	for(i=0;i<length;i++) { //could be done by a mempcy to speed up
-    	previous[i] = i-1; //initialize the previous unfolded letter 
+	
+	for(int k=0;k<length;k++) { //could be done by a mempcy to speed up
+    	previous[k] = k-1; //initialize the previous unfolded letter 
     }
-    i=0;
+    int i=0,j=1,counter=0; //could be done using only j and previous[j]
   	while(j<length) {//fold in a greedy manner, if it does not work, then the backbone is not foldable
   		if(w[i].label + w[j].label == 0) {
   			counter+=2;
@@ -86,9 +83,9 @@ int is_foldable(FreeEdge *w, int length){//return true when the backbone is fold
       		i=j;
       		j++;
       	}
-      }
-      return (counter == length);  
-  }
+    }
+    return (counter == length);  
+}
 
 void precompute_foldable(FreeEdge *w, int length) //use only on foldable words, dynamic programming to compute the fold_matrix which contains 
 //for each i the list of j which be folded with i so that the words obtained are still foldable
