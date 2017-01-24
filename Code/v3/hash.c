@@ -1,6 +1,7 @@
 #include "hash.h"
 #include <string.h>
 
+
 unsigned int hash_basic(unsigned int* tab){//the size of the tab is written in the first element
   unsigned  int res = tab[0];
   //printf("Size of the signature %d \n",res);
