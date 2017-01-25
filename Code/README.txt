@@ -27,7 +27,8 @@ Sur la variante 5, peut être que calculer le minimum sur tout le tableau n'est 
 à condition de faire un tableau bien tight (et donc de réfléchir à la taille max d'un cycle).
 Ça permet de simplifier le code en virant la liste. 
 
-
+Attention XVI échoue, et JVV donne des résultats incohérents avec les versions
+précédentes en mode arbre.Il y a un problème avec create concatenation helper.
 
 
 Écrire le plan d'un papier.
