@@ -11,9 +11,10 @@ pour IVV l'ordre ne change pas et la supression de la couleur de l'arête non pl
 mais ça coute un peu (environ 15% de temps de calcul dans la signature en plus).
 
 -différentes méthodes de sélection du premier noeud -> 
-première méthode: sommet ayant l'arête de plus petite multiplicité, et de degré max. 
+première méthode: sommet ayant l'arête de plus petite multiplicité, et de degré max. (implémenté dans v3) 
 deuxième méthode: quand on calcule les almost foldable path/tree, on pourrait calculer le nombre de noeuds de chaque type.
 Dans les graphes possibles, on regarde le couple noeud arrête qui apparaît le moins.
+La version v3alt précalcule et explore les combinaisons de noeuds qui respectent les critères de compatibilité sur les arêtes (chaque arête doit être compensée par son arête complémentaire), et détermine le couple noeud arrête qui apparait le moins. Cette version "intelligente" de la première méthode ne tient juste pas compte des arrangements possibles (i.e. il s'agit d'une moyenne arithmétique, et non pondérée)
 
 Ajouter une cible bench dans le makefile avec le test de cinq générateurs assez rapide et
 représentatifs. 
@@ -37,7 +38,7 @@ précédentes en mode arbre.Il y a un problème avec create concatenation helper
 
 v1: version de base (on peut jouer éventuellement sur l'ordre des trois couleurs sur l'arête)
 v2: on ajoute une nouvelle couleur, la taille de la face
-v3: on ne calcule que les signatures commencant par un sommet et une arrête choisis intelligemment au début du programme
+v3/v3alt: on ne calcule que les signatures commencant par un sommet et une arrête choisis intelligemment au début du programme
 v4: on calcule que les signatures commencant par une paire (sommet, arête) qui apparaît un minimum de fois dans le graphe
 v5: on calcule que les signatures commencant par un triplet (sommet, arête, taille de face) qui apparaît un minimum de fois dans le graphe
 v6: on ne calcule que la signature faible pour tester l'existence et on insère toutes les signatures quand la map n'est pas encore stockée
