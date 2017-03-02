@@ -83,12 +83,12 @@ int main (int argc, char *argv[])
 
   //Get multiplicity of fewest populated edge for each type of vertex
   int *edge_multiplicity = calloc(label.size,sizeof(int));
-  int min_occurence, current_degree = 0;
+  int current_degree = 0;
+  int min_occurence = maxdegree + 1;
   for (i = 0;i < vertexnumber;i++){
     for (j = 0;j < vertices[i].degree;j++){
       edge_multiplicity[vertices[i].edges[j]]++;
     }
-    min_occurence = vertices[i].degree + 1;
     for (j = 0;j < label.size;j++){
       if (edge_multiplicity[j] != 0 && edge_multiplicity[j] <= min_occurence){
         if(edge_multiplicity[j] < min_occurence || (edge_multiplicity[j] == min_occurence && vertices[i].degree > current_degree)){
