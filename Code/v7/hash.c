@@ -104,6 +104,9 @@ int insert_hasht(Hasht *h, unsigned int* tab){//return 0 when the element was al
   //printf("insertion level %d\n",h->aux_level);
 }
 
+/*Cette fonction pourrait être utilisée mais a comme défaut de 
+copier plusieurs fois la même signature en cas d'automorphisme
+
 void fast_insert_hasht(Hasht *h, unsigned int* tab){//optimized version when we know that the signature is not in the hashtable
   unsigned int key = hash_basic(tab);
   //printf("Clé %d \n",key);
@@ -119,7 +122,7 @@ void fast_insert_hasht(Hasht *h, unsigned int* tab){//optimized version when we 
   current_element->next = write_element_heap(h->hp);  
   (current_element->next)->data = write_signature_heap(h->hp,tab);
   //printf("insertion level %d\n",h->aux_level);
-}
+}*/
 
 void affiche_hasht(Hasht *h){
   printf("Insertions dans la table  %d, nombre de signatures dans la table %d, nombre de maps %d\n",h->insertions,h->elements,h->nombre_map);
@@ -170,7 +173,7 @@ void hash_insert(Hasht* h, Map* M){
     for(int i = edge+1; i < M->vertexarray[vertex].degree ; i++){
       if(vertices[M->vertexarray[vertex].type].edges[i] == rarest_edge_label){
         signature_vertex_edge(M,vertex,i);
-        fast_insert_hasht(h, M->signature);
+        insert_hasht(h, M->signature);
       }
     }
     for (int i = vertex+1 ; i<M->vertexnumber; i++){
@@ -178,7 +181,7 @@ void hash_insert(Hasht* h, Map* M){
         for (int j = 0 ; j < M->vertexarray[i].degree ; j++){
           if(vertices[M->vertexarray[i].type].edges[j] == rarest_edge_label){
             signature_vertex_edge(M,i,j);
-            fast_insert_hasht(h, M->signature);
+            insert_hasht(h, M->signature);
           }
         }
       }
