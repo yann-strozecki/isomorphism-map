@@ -241,22 +241,31 @@ void create_concatenation_helper(int size, Vertex * vert)
 
 void almost_foldable_tree(int vertexnumber, Vertex *vert)
 {
-  int maxsize = 2*label.shift;
+  int maxsize = 2*label.shift + 1;
+  //printf("maxsize : %d \n",maxsize);
   almostfoldabletree = malloc(sizeof(unsigned int*)*mapsize);
   for(int i=0;i<mapsize;i++)//initialise mat to 0
   {
     almostfoldabletree[i] = calloc(maxsize,sizeof(unsigned int));
   }
-  for(int i=0;i<vertexnumber;i++) almostfoldabletree[mapsize-1][vert[i].labelvalue + label.shift] = 1;
+  for(int i=0;i<vertexnumber;i++) {
+    almostfoldabletree[mapsize-1][vert[i].labelvalue + label.shift] = 1;
+    //printf("vert[i].labelvalue  : %d \n",vert[i].labelvalue );
+  }
   for(int i=1;i<mapsize;i++) {
     for(int j=0;j<maxsize;j++){
       if(almostfoldabletree[mapsize -i][j]){
-        for(int k=0;k<vertexnumber;k++) almostfoldabletree[mapsize-i-1][vert[k].labelvalue + j] = 1;
+        for(int k=0;k<vertexnumber;k++) {
+          almostfoldabletree[mapsize-i-1][vert[k].labelvalue + j] = 1;
+          //printf("j : %d et vert[k].labelvalue + j %d\n",j,vert[k].labelvalue + j);
+        }
       }
     }
   }
   //printmatrixtree(mat,size,maxsize,MAGICNUMBER,alphabetsize);
 }
+//almost foldable tree could be an array of char, or even a bitarray to win a large quantity of memory
+//is it useful ? 
 
 //Create a multidimensional table which contains the information about the almost foldable paths
 
@@ -271,7 +280,7 @@ void almost_foldable_path(int vertexnumber, Vertex *vert)
   }
   int *sizes = calloc(label.size,sizeof(int));// sizes[i] is the size of add_after_a_label[i]
   int alphabetsize = label.size/2;
-  int maxsize = 2*label.shift;//third dimension of the matrix, correspond to the sum of values of the free edges in the map
+  int maxsize = 2*label.shift + 1;//third dimension of the matrix, correspond to the sum of values of the free edges in the map
   almostfoldablepath = malloc(sizeof(unsigned int**)*mapsize);
   //this matrix has three dimensions
   //the first is the maximum size of a path minus the size of the path it encodes information about

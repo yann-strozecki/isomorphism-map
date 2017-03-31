@@ -241,7 +241,7 @@ void create_concatenation_helper(int size, Vertex * vert)
 
 void almost_foldable_tree(int vertexnumber, Vertex *vert)
 {
-  int maxsize = 2*label.shift;
+  int maxsize = 2*label.shift + 1;
   almostfoldabletree = malloc(sizeof(unsigned int*)*mapsize);
   for(int i=0;i<mapsize;i++)//initialise mat to 0
   {
@@ -271,7 +271,7 @@ void almost_foldable_path(int vertexnumber, Vertex *vert)
   }
   int *sizes = calloc(label.size,sizeof(int));// sizes[i] is the size of add_after_a_label[i]
   int alphabetsize = label.size/2;
-  int maxsize = 2*label.shift;//third dimension of the matrix, correspond to the sum of values of the free edges in the map
+  int maxsize = 2*label.shift + 1;//third dimension of the matrix, correspond to the sum of values of the free edges in the map
   almostfoldablepath = malloc(sizeof(unsigned int**)*mapsize);
   //this matrix has three dimensions
   //the first is the maximum size of a path minus the size of the path it encodes information about
