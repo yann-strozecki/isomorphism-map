@@ -18,7 +18,6 @@ pour IVV l'ordre ne change pas et la supression de la couleur de l'arête non pl
 -ajouter le calcul de des faces pour enrichir la couleur -> ça ne change toujours pas vraiment
 mais ça coute un peu (environ 15% de temps de calcul dans la signature en plus).
 -M->signature[0] = M->edgenumber; on devrait avoir seulement M->signature[0] et pas M->edgenumber qui ne sert à rien
--il reste de la mémoire non désallouée
 -on pourrait coder les éléments de la signature sur 32 bits pour accélérer les lectures et copies et calcul de hash,
 et diviser la taille de stockage par 2. Pas sûr qu'il y ait une amélioration de performance.
 -relire ce readme pour voir ou on en est (tout n'est pas à jour)

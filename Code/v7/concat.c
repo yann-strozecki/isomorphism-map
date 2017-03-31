@@ -33,12 +33,14 @@ Map *initializemap(){//create a new map with value -1 on the edges
 
 //free the map
 void free_map(Map *M){
-	for(int i = 0; i< M->vertexnumber; i++){
+	for(int i = 0; i< mapsize; i++){
 		free(M->vertexarray[i].edges);
 	}
+	free(M->signature);
 	free(M->vertexarray);
 	free(M);
 }
+
 
 //all print functions should be put in their own file
 void prettyprint2(FILE *F, unsigned long long int x, char *s) {
