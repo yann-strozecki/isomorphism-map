@@ -3,13 +3,9 @@ La version de base avec un simple DFS sans aucun raffinement.
 
 Remarques après test:
 
-les graphes ont très peu d'automorphismes -> très étonnant,
-il faudrait que je les recalcule pour vérifier.
-Sans doute du a un problème de reconnaissance des signatures avec memcmp dans l'insertion !!!!! 
+les graphes ont très peu d'automorphismes -> étonnant,
+il faudrait que je reteste à avec mon nouveau code de table de hachage.
 Si c'est vrai que presque aucun graphe n'a d'automorhisme ça explique des choses sur les performances de certaines méthode d'isomorphisme.
-
-Je pourrait fortement simplifier la hashmap en faisant une hashmap avec une zone de tas qui augmente de taille qui contient à la fois
-le pointeur suivant de liste et les données.
 
 
 À faire:  
@@ -21,6 +17,13 @@ pour IVV l'ordre ne change pas et la supression de la couleur de l'arête non pl
 ->pour YVV un tout petit peu de changement mais c'est dans le bruit (5%)
 -ajouter le calcul de des faces pour enrichir la couleur -> ça ne change toujours pas vraiment
 mais ça coute un peu (environ 15% de temps de calcul dans la signature en plus).
+-M->signature[0] = M->edgenumber; on devrait avoir seulement M->signature[0] et pas M->edgenumber qui ne sert à rien
+-il reste de la mémoire non désallouée
+-on pourrait coder les éléments de la signature sur 32 bits pour accélérer les lectures et copies et calcul de hash,
+et diviser la taille de stockage par 2. Pas sûr qu'il y ait une amélioration de performance.
+-relire ce readme pour voir ou on en est (tout n'est pas à jour)
+-dans certains cas, on peut ne pas mettre le premier noeud dans la signature (couleur du premier noeud et premiere arête fixée)
+dans d'autre cas on peut sans doute éviter le dernier
 
 
 -différentes méthodes de sélection du premier noeud -> 
@@ -42,8 +45,10 @@ Sur la variante 5, peut être que calculer le minimum sur tout le tableau n'est 
 Ça permet de simplifier le code en virant la liste. 
 
 Attention XVI échoue, et JVV donne des résultats incohérents avec les versions
-précédentes en mode arbre.Il y a un problème avec create concatenation helper.
+précédentes en mode arbre. Il y a un problème avec create concatenation helper.
+La génération des cycles est problématique aussi avec des erreurs mémoires aussi.
 
+Changer dans la table de hash avalaible space de int en unsigned int fait tout crasher, pourquoi ?
 
 Écrire le plan d'un papier.
 

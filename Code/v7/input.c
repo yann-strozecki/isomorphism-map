@@ -179,7 +179,7 @@ void compute_label_values(int size, Vertex * vert){
 
 int non_isomorph(int *list, int size, int sh) { //return false if the list of edges shifted by sh is isomorph to the list shifted by less
   int j;
-  for(int i=0; i < sh; i++) {
+  for(int i = 0; i < sh; i++) {
     for(j = 0; j < size || list[(j+i) % size] != list[(i + sh) % size];j++);
     if(j==size) return 0;
   }

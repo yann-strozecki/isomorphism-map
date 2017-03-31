@@ -7,36 +7,27 @@
 
 #define BACKBONETYPE 1 // 0 for generating tree, 1 for generating path, 2 for generating cycle
 #define HASH_SIZE 1000000 //augmenter pour diminuer les collisions
-#define HEAP_SIZE 10000000 //stockage des signatures
-
-
-//most of the int could be char to make it more memory efficient (cache efficient ?)
-//at least some struct could pack 4 char instead of 4 int
-//everything could be unsigned too
+#define HEAP_SIZE 1000000 //stockage des signatures
 
 
 typedef struct elem{
-  unsigned int* data; //the first element is the size of the stored signature
-  struct elem* next;
-} elem;	
+    struct elem* next;
+} elem; 
 
-typedef struct heap{
-  int elements_space;
-  int signatures_space;
-  int elements_level;
-  int signatures_level;
-  elem* elements[8];
-  unsigned int *signatures[8]; //ecrire une fonction de conversion des signatures en map
-  elem* next_element;
-  unsigned int* next_signature;
+typedef struct{
+  int heap_level;
+    elem* memory[16];//store in this order the next pointer, the size of the signature and the signature
+  elem* next_position;
+    int avalaible_space;
 } Heap;
 
-typedef struct hasht{
-  int elements;
-  int insertions;
-  elem* hash; 
+typedef struct{
+  elem** hash;
+  unsigned int elements;
+  unsigned int insertions;
+  unsigned int nombre_map; 
   Heap* hp;
-} Hasht;  
+} Hasht;    
 
 typedef struct pair {
 	int first;

@@ -5,38 +5,28 @@
 #ifndef ___STRUCTURE_H
 #define ___STRUCTURE_H
 
-#define BACKBONETYPE 1 // 0 for generating tree, 1 for generating path, 2 for generating cycle
+#define BACKBONETYPE 0 // 0 for generating tree, 1 for generating path, 2 for generating cycle
 #define HASH_SIZE 1000000 //augmenter pour diminuer les collisions
-#define HEAP_SIZE 10000000 //stockage des signatures
-
-
-//most of the int could be char to make it more memory efficient (cache efficient ?)
-//at least some struct could pack 4 char instead of 4 int
-//everything could be unsigned too
+#define HEAP_SIZE 1000000 //stockage des signatures
 
 
 typedef struct elem{
-  unsigned int* data; //the first element is the size of the stored signature
-  struct elem* next;
+  	struct elem* next;
 } elem;	
 
-typedef struct heap{
-  int elements_space;
-  int signatures_space;
-  int elements_level;
-  int signatures_level;
-  elem* elements[8];
-  unsigned int *signatures[8]; //ecrire une fonction de conversion des signatures en map
-  elem* next_element;
-  unsigned int* next_signature;
+typedef struct{
+	int heap_level;
+  	elem* memory[16];//store in this order the next pointer, the size of the signature and the signature
+	elem* next_position;
+    int avalaible_space;
 } Heap;
 
-typedef struct hasht{
-  int elements;
-  int insertions;
-  int nombre_map;
-  elem* hash; 
-  Heap* hp;
+typedef struct{
+	elem** hash;
+	unsigned int elements;
+	unsigned int insertions;
+	unsigned int nombre_map; 
+	Heap* hp;
 } Hasht;  
 
 typedef struct pair {
@@ -77,22 +67,20 @@ typedef struct FreeEdge {  //a free edge in the graph
 typedef struct Edge {
 	int vertexindex;//vertex connected to the edge
 	int edgeindex;//position of this edge in the neighborood of the end vertex
-  int val;//partial signature containing (edge label, vertex id)
+	int val;//partial signature containing (edge label, vertex id)
 } Edge; 
 
 typedef struct VertexMap {
-  int degree;//degree of the vertex
-  int type;//position in the list of vertices of type Vertex -> should be id
-  Edge *edges;//array of the neighbour given by their index in VertexMap 
+	int degree;//degree of the vertex
+  	int type;//position in the list of vertices of type Vertex -> should be id
+  	Edge *edges;//array of the neighbour given by their index in VertexMap 
 } VertexMap;//we should store the id instead of the type since it is what we really want
 
-
-
 typedef struct Map{
-  int vertexnumber; //number of vertices in the Map 
-  int edgenumber; // Size of the signature -> renommer en signature size
-  VertexMap *vertexarray;//Array of the vertices with their neighbours
-  unsigned int *signature;
+	int vertexnumber; //number of vertices in the Map 
+  	int edgenumber; // Size of the signature -> renommer en signature size
+  	VertexMap *vertexarray;//Array of the vertices with their neighbours
+  	unsigned int *signature;
 } Map;	
 
 //All variables defined here globally correspond to unique instance of their type. They are used to store immutable informations all along the algorithm.

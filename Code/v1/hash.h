@@ -1,6 +1,5 @@
 #include "structure.h"
 #include "signature.h"
-#include "index.h"
 
 
 // add a new map in the Hashtable

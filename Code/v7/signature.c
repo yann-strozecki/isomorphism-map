@@ -62,6 +62,8 @@ void signature_vertex_edge(Map *M, int vertex_deb, int edge_deb) {
 //color of vertices and precomputation of colors
     S_index++;
   }
+  //printf("Taille signature comprenant la taille en premier élément %d\n", S_index);
+  //printf("Taille signature dans edgenumber : %d \n",M->edgenumber);
   //print_signature(M);
 }
 

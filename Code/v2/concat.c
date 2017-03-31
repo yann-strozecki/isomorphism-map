@@ -91,7 +91,7 @@ unsigned long long int generate_paths(int verticesnumber, Hasht *h, Map *map, Fr
 	    	{
 				map->vertexarray[0].type = i;   //initialize the first vertex of the path
 				map->vertexarray[0].degree = vertices[i].degree;
-				map->edgenumber = vertices[i].degree - mapsize + 2;//-mapsize+2 corresponds to the number of edges not used in the signature
+				map->edgenumber = vertices[i].degree - mapsize + 2 +  1;//-mapsize+2 corresponds to the number of edges not used in the signature
 				currentsize=0; //size -1 of the current path
 				connectionstack[0] = 0;
 				labelvalues = label.shift - vertices[i].labelvalue;//the complementay of the current labelvalue
@@ -160,7 +160,7 @@ unsigned long long int generate_trees(int verticesnumber, Hasht *h, Map *map, Fr
   
   map->vertexarray[0].type = 0;   //initialize the first vertex of the tree as vertex of type 0
   map->vertexarray[0].degree = vertices[0].degree;
-  map->edgenumber = vertices[0].degree - mapsize + 2;//-mapsize+2 corresponds to the number of edges not used in the signature
+  map->edgenumber = vertices[0].degree - mapsize + 2 + 1;//-mapsize+2 corresponds to the number of edges not used in the signature
   int labelvalues = vertices[0].labelvalue;
   for(i=0;i<map->vertexarray[0].degree;i++) //use free_edge_number instead of i ?
     {
