@@ -34,13 +34,13 @@ int main (int argc, char *argv[])
 	int vertexnumber;//could be in a struct (maybe with the list of label and its size, and 
   //the list of Vertices and  its size)
 	vertexnumber = read_input (argv[1], &maxdegree);
-  //printvertices(vertexnumber,vertices);
 	normalize_labels(vertexnumber, vertices);
   compute_label_values(vertexnumber, vertices);
+  printvertices(vertexnumber,vertices);
   //for(i=0;i<label.size;i++) printf("label %d : %d ",i,label.list[i]);
   //printvertices(vertexnumber,vertices);
 	vertices = create_rotated_vertices(&vertexnumber,vertices);
-  //printvertices(vertexnumber,vertices);
+  printvertices(vertexnumber,vertices);
 	create_concatenation_helper(vertexnumber, vertices);
   //printcompatible(label.size);
   if(BACKBONETYPE){

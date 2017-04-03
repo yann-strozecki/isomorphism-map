@@ -184,12 +184,13 @@ unsigned long long int generate_trees(int verticesnumber, Hasht *h, Map *map, Fr
 		map->vertexarray[size].edges[0].vertexindex= currentvertex;
 		map->vertexarray[size].edges[0].edgeindex= currentedge;
 		currentlabel = vertices[map->vertexarray[currentvertex].type].edges[currentedge];
+		//printf("Position dans la liste de connection %d, taille liste de connection %d, current_label %d\n", enumeration_position[currentvertex][currentedge].first,connection[currentlabel].vertexnumber, currentlabel);
 		newtype = connection[currentlabel].list[enumeration_position[currentvertex][currentedge].first];
 		map->vertexarray[size].type = newtype;
 		labelvalues += vertices[newtype].labelvalue;
 		map->vertexarray[size].degree = vertices[newtype].degree;
 		map->edgenumber += vertices[newtype].degree;
-	//printf("currentvertex %d currentedge %d currentlabel %d type %d\n",currentvertex,currentedge,currentlabel,newtype);
+		//printf("currentvertex %d currentedge %d currentlabel %d type %d\n",currentvertex,currentedge,currentlabel,newtype);
 		for(i=1;i<vertices[newtype].degree;i++) {
 	  		enumeration_position[size][i].first = 0;
 	  		edgestack[free_edge_number].first = size;

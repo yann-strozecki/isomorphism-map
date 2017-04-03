@@ -103,10 +103,10 @@ JVV: clean kekule
 	./kekule ../Examples/testJVV.mot 18
 
 debug: clean kekule
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./kekule ../Examples/testXI.mot 6
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./kekule ../Examples/testIVK.mot 6
 
 profile: clean kekule
-	valgrind --tool=callgrind ./kekule ../Examples/testIVV.mot 18
+	valgrind --tool=callgrind ./kekule ../Examples/testXI.mot 12
 	kcachegrind
 
 git: clean

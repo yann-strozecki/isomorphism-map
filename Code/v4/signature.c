@@ -192,7 +192,7 @@ void compute_face(Map *M, int vertex_deb, int edge_deb) {
 // ######
 void signature_compute(Map *M) {
   
-	int  rarest_vertex_id, rarest_edge_label;
+	int  rarest_vertex_id = 0, rarest_edge_label;
   	for (int vertex = 0 ; vertex < M->vertexnumber; vertex++){
     	for (int edge = 0 ; edge < M->vertexarray[vertex].degree ; edge++){
       		M->vertexarray[vertex].edges[edge].val = (vertices[M->vertexarray[vertex].type].id<<24) + (vertices[M->vertexarray[vertex].type].edges[edge]<<16); 

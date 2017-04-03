@@ -5,7 +5,7 @@
 #ifndef ___STRUCTURE_H
 #define ___STRUCTURE_H
 
-#define BACKBONETYPE 1 // 0 for generating tree, 1 for generating path, 2 for generating cycle
+#define BACKBONETYPE 0 // 0 for generating tree, 1 for generating path, 2 for generating cycle
 #define HASH_SIZE 1000000 //augmenter pour diminuer les collisions
 #define HEAP_SIZE 1000000 //stockage des signatures
 

@@ -103,7 +103,7 @@ JVV: clean kekule
 	./kekule ../Examples/testJVV.mot 18
 
 debug: clean kekule
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./kekule ../Examples/testIVV.mot 3
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./kekule ../Examples/testJVV.mot 6 
 
 profile: clean kekule
 	valgrind --tool=callgrind ./kekule ../Examples/testIVV.mot 18

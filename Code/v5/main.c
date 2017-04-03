@@ -138,7 +138,8 @@ int main (int argc, char *argv[])
   free(stack_edge);
   free(stack_vertex);
   free(occurences_array);
-  free(occ_addr_array); 
+  free(occ_addr_array);
+  free(val_addr); 
   chrono();
   printf("## END ##\n");
 return 0;

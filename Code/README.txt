@@ -22,7 +22,10 @@ mais ça coute un peu (environ 15% de temps de calcul dans la signature en plus)
 et diviser la taille de stockage par 2. Pas sûr qu'il y ait une amélioration de performance.
 -relire ce readme pour voir ou on en est (tout n'est pas à jour)
 -dans certains cas, on peut ne pas mettre le premier noeud dans la signature (couleur du premier noeud et premiere arête fixée)
-dans d'autre cas on peut sans doute éviter le dernier
+dans d'autre cas on peut sans doute éviter le dernier, voir plus
+-au début on pourrait allouer des tableaux de mémoire d'exactement la taille dont on a besoin,
+et mieux organiser les infos dont on a besoin pour mettre plus facilement tout ça en cache
+-je ne comprends plus l'optimisation sur la deuxième boucle de la génération de chemin
 
 
 -différentes méthodes de sélection du premier noeud -> 
@@ -43,10 +46,6 @@ Sur la variante 5, peut être que calculer le minimum sur tout le tableau n'est 
 à condition de faire un tableau bien tight (et donc de réfléchir à la taille max d'un cycle).
 Ça permet de simplifier le code en virant la liste. 
 
-Attention XVI échoue, et JVV donne des résultats incohérents avec les versions
-précédentes en mode arbre. Il y a un problème avec create concatenation helper.
-La génération des cycles est problématique aussi avec des erreurs mémoires aussi.
-
 Changer dans la table de hash avalaible space de int en unsigned int fait tout crasher, pourquoi ?
 
 Écrire le plan d'un papier.
@@ -59,4 +58,4 @@ v3/v3alt: on ne calcule que les signatures commencant par un sommet et une arrê
 v4: on calcule que les signatures commencant par une paire (sommet, arête) qui apparaît un minimum de fois dans le graphe
 v5: on calcule que les signatures commencant par un triplet (sommet, arête, taille de face) qui apparaît un minimum de fois dans le graphe
 v6: on ne calcule que la signature faible pour tester l'existence et on insère toutes les signatures quand la map n'est pas encore stockée
-v7: on commence par un couple (sommet,arête) fixé au début de l'algo
+v7/v7 alt: on commence par un couple (sommet,arête) fixé au début de l'algo (choisi de manière naïve ou intelligente)

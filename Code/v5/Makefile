@@ -86,7 +86,6 @@ IVK: clean kekule
 	./kekule ../Examples/testIVK.mot 6
 	./kekule ../Examples/testIVK.mot 12
 	./kekule ../Examples/testIVK.mot 18
-	./kekule ../Examples/testIVK.mot 24
 
 
 XI: clean kekule
@@ -104,7 +103,7 @@ JVV: clean kekule
 	./kekule ../Examples/testJVV.mot 18
 
 debug: clean kekule
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./kekule ../Examples/testIVV.mot 6
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./kekule ../Examples/testJVV.mot 6 
 
 profile: clean kekule
 	valgrind --tool=callgrind ./kekule ../Examples/testIVV.mot 18

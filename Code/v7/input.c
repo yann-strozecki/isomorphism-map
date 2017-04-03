@@ -179,8 +179,8 @@ void compute_label_values(int size, Vertex * vert){
 
 int non_isomorph(int *list, int size, int sh) { //return false if the list of edges shifted by sh is isomorph to the list shifted by less
   int j;
-  for(int i = 0; i < sh; i++) {
-    for(j = 0; j < size || list[(j+i) % size] != list[(i + sh) % size];j++);
+  for(int i=0; i < sh; i++) {
+    for(j = 0; j < size && list[(j+i) % size] == list[(j + i + sh) % size];j++);
     if(j==size) return 0;
   }
   return 1;
@@ -243,22 +243,27 @@ void create_concatenation_helper(int size, Vertex * vert)
 void almost_foldable_tree(int vertexnumber, Vertex *vert)
 {
   int maxsize = 2*label.shift + 1;
+  //printf("maxsize : %d \n",maxsize);
   almostfoldabletree = malloc(sizeof(unsigned int*)*mapsize);
   for(int i=0;i<mapsize;i++)//initialise mat to 0
   {
     almostfoldabletree[i] = calloc(maxsize,sizeof(unsigned int));
   }
-  for(int i=0;i<vertexnumber;i++) almostfoldabletree[mapsize-1][vert[i].labelvalue + label.shift] = 1;
+  for(int i=0;i<vertexnumber;i++) {
+    almostfoldabletree[mapsize-1][vert[i].labelvalue + label.shift] = 1;
+    //printf("vert[i].labelvalue  : %d \n",vert[i].labelvalue + label.shift);
+  }
   for(int i=1;i<mapsize;i++) {
     for(int j=0;j<maxsize;j++){
       if(almostfoldabletree[mapsize -i][j]){
-        for(int k=0;k<vertexnumber;k++) almostfoldabletree[mapsize-i-1][vert[k].labelvalue + j] = 1;
+        for(int k=0;k<vertexnumber;k++) {
+          almostfoldabletree[mapsize-i-1][vert[k].labelvalue + j] = 1;
+          //printf("j : %d et vert[k].labelvalue + j %d\n",j,vert[k].labelvalue + j);
+        }
       }
     }
   }
-  //printmatrixtree(mat,size,maxsize,MAGICNUMBER,alphabetsize);
 }
-
 //Create a multidimensional table which contains the information about the almost foldable paths
 
 void almost_foldable_path(int vertexnumber, Vertex *vert)

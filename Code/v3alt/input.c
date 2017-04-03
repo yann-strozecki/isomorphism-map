@@ -161,6 +161,7 @@ void compute_label_values(int size, Vertex * vert){
     label.shift += label_max[l]/2;
   } //it is a bound on the maximal positive values
   //compute the labelvalue of each vertex by adding the value of the label of each edge
+  label.shift*=2;
   for(int i=0; i < size; i++){ 
     vert[i].labelvalue = 0;
     for(int j=0; j < vert[i].degree; j++) { 
@@ -179,7 +180,7 @@ void compute_label_values(int size, Vertex * vert){
 int non_isomorph(int *list, int size, int sh) { //return false if the list of edges shifted by sh is isomorph to the list shifted by less
   int j;
   for(int i=0; i < sh; i++) {
-    for(j = 0; j < size || list[(j+i) % size] != list[(i + sh) % size];j++);
+    for(j = 0; j < size && list[(j+i) % size] == list[(j + i + sh) % size];j++);
     if(j==size) return 0;
   }
   return 1;

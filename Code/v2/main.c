@@ -134,6 +134,7 @@ int main (int argc, char *argv[])
   free(rank);
   free(stack_edge);
   free(stack_vertex);
+  free(val_addr);
   chrono();
   printf("## END ##\n");
 return 0;
