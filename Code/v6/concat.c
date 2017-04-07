@@ -154,7 +154,7 @@ unsigned long long int generate_paths(int verticesnumber, Hasht *h, Map *map, Fr
 
 //Function which create every possible tree and then for each call folding_enumeration to create all possible folding
 
-unsigned long long int generate_trees(int verticesnumber, Hasht *h, Map *map, FreeEdge *outline)
+unsigned long long int generate_trees(Hasht *h, Map *map, FreeEdge *outline)
 {
   int size=1, free_edge_number=0,i,j,currentvertex,currentedge,currentlabel,newtype;
   static unsigned long long int backbonenumber = 0;

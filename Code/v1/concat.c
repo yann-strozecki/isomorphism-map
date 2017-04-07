@@ -88,8 +88,8 @@ unsigned long long int generate_paths(int verticesnumber, Hasht *h, Map *map, Fr
       {//optimization : go over the first vertices only (not the rotated ones)
 		for(j=0; j < vertices[i].degree; j++)
 	  	{ 
-	    	if (non_isomorph(vertices[i].edges,vertices[i].degree,j))//optimization: do not consider two edges which are equivalent in their neighborood for the first vertex
-	    	{
+	    	if (non_isomorph(vertices[i].edges,vertices[i].degree,j))
+	    	{//optimization: do not consider two edges which are equivalent
 				map->vertexarray[0].type = i;   //initialize the first vertex of the path
 				map->vertexarray[0].degree = vertices[i].degree;
 				map->edgenumber = vertices[i].degree - mapsize + 2 + 1;//-mapsize+2 corresponds to the number of edges not used in the signature

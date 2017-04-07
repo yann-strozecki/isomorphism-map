@@ -39,6 +39,7 @@ int main (int argc, char *argv[])
   compute_label_values(vertexnumber, vertices);
   //for(i=0;i<label.size;i++) printf("label %d : %d ",i,label.list[i]);
   //printvertices(vertexnumber,vertices);
+  int oldvertexnumber = vertexnumber;
 	vertices = create_rotated_vertices(&vertexnumber,vertices);
   printvertices(vertexnumber,vertices);
 	create_concatenation_helper(vertexnumber, vertices);
@@ -115,7 +116,7 @@ int main (int argc, char *argv[])
 
   unsigned long long int backbonenumber;
   if(BACKBONETYPE){
-  	backbonenumber = generate_paths(vertexnumber, h, M, outline);
+  	backbonenumber = generate_paths(oldvertexnumber, h, M, outline);
   }else{
   	backbonenumber =  generate_trees(vertexnumber, h, M, outline);
   }
