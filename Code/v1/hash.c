@@ -2,9 +2,9 @@
 #include <string.h>
 
 unsigned int hash_basic(unsigned int* tab){//the size of the tab is written in the first element
-  unsigned  int res = tab[0];
+  unsigned int res = tab[0];
   //printf("Size of the signature %d \n",res);
-  for (int i = 1; i< tab[0]; i++){
+  for (int i = 1; i < tab[0]; i++){
     res ^= (tab[i] << i) | (tab[i] >> (sizeof(int)*8 - i));  //rotation
   }
   return (res%HASH_SIZE);

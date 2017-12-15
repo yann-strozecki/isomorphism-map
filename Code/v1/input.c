@@ -147,7 +147,7 @@ void compute_label_values(int size, Vertex * vert){
         label_count[vert[i].edges[j]-labelnumber]--;
       }
     }
-    for(int l = 0; l < labelnumber; l++){//update the maximal numbero of label of each type
+    for(int l = 0; l < labelnumber; l++){//update the maximal number of label of each type
       if( label_max[l] < abs(label_count[l])){ label_max[l] = abs(label_count[l]);} 
     }
   }
@@ -180,8 +180,8 @@ void compute_label_values(int size, Vertex * vert){
 int non_isomorph(int *list, int size, int sh) { //return false if the list of edges shifted by sh is isomorph to the list shifted by less
   int j;
   for(int i=0; i < sh; i++) {
-    for(j = 0; j < size && list[(j+i) % size] == list[(j + i + sh) % size];j++);
-    if(j==size) return 0;
+    for(j = 0; j < size && list[(j+i) % size] == list[(j + i + sh) % size]; j++);
+    if(j == size) return 0;
   }
   return 1;
 }

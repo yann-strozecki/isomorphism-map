@@ -15,9 +15,9 @@ typedef struct elem{
 } elem; 
 
 typedef struct{
-  int heap_level;
+    int heap_level;
     elem* memory[16];//store in this order the next pointer, the size of the signature and the signature
-  elem* next_position;
+    elem* next_position;
     int avalaible_space;
 } Heap;
 
@@ -81,7 +81,7 @@ typedef struct VertexMap {
 
 typedef struct Map{
   int vertexnumber; //number of vertices in the Map 
-  int edgenumber; // Size of the signature -> renommer en signature size
+  int edgenumber; // Size of the signature -> devrait directement être stocké dans le premier élément du tableau signature
   VertexMap *vertexarray;//Array of the vertices with their neighbours
   unsigned int *signature;
 } Map;	

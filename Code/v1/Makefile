@@ -1,4 +1,4 @@
-CC= gcc
+CC= clang
 CFLAGS= -O3 -Wall -std=c11 -c -g 
 POSTFLAGS= -lm 
 
@@ -106,7 +106,7 @@ debug: clean kekule
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./kekule ../Examples/testIVK.mot 6
 
 profile: clean kekule
-	valgrind --tool=callgrind ./kekule ../Examples/testXI.mot 12
+	valgrind --tool=callgrind ./kekule ../Examples/testJVV.mot 12
 	kcachegrind
 
 git: clean
